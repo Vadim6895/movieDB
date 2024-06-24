@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "./",
+  "homepage": "https://vadim6895.github.io",
   "scripts": {
     "start": "webpack serve",
     "build": "set NODE_ENV=production && webpack",
