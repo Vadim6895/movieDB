@@ -1,0 +1,189 @@
+@use "../../../scss/common" as *;
+@use "../../../scss/variables" as *;
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  margin-bottom: 15px;
+
+  &:visited {
+    color: #fff;
+  }
+}
+
+.title {
+  @include font(18px, 21px, 600);
+
+  margin: 0;
+
+  @media (min-width: $md) {
+    font-size: 21px;
+    line-height: 26px;
+  }
+
+  @media (min-width: $lg) {
+    font-size: 26px;
+    line-height: 30px;
+  }
+}
+
+.icon {
+  margin-left: 10px;
+
+  svg {
+    display: block;
+    width: 12px;
+    height: 12px;
+
+    @media (min-width: $md) {
+      width: 15px;
+      height: 15px;
+    }
+
+    @media (min-width: $lg) {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.sliderPageBtns {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.slider {
+  overflow: visible;
+
+  &:hover {
+    .sliderPageBtns {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.wrapper {
+  aspect-ratio: 2 / 3;
+}
+
+.poster {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 15px;
+  z-index: -1;
+}
+
+.content {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  color: #fff;
+  border-radius: 15px;
+  background: linear-gradient(
+    180deg,
+    rgba(255 255 255 / 0%) 70%,
+    rgba(0 0 0 / 40%) 100%
+  );
+  transition: background 0.3s ease;
+
+  @media (min-width: $md) {
+    padding: 20px;
+  }
+}
+
+.rating {
+  place-self: start;
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 17px;
+
+  @media (min-width: $md) {
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
+
+.btns {
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  margin: 0;
+  align-self: end;
+  grid-column: 1 / 3;
+  font-size: 14px;
+  line-height: 17px;
+  text-shadow: 0 0 16px rgba(0 0 0 / 70%);
+
+  @media (min-width: $md) {
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
+
+.showAllWrapper {
+  width: 100%;
+  height: 100%;
+  background-color: #1c1f29;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.showAllIcon {
+  width: 20px;
+  height: 20px;
+
+  @media (min-width: $md) {
+    width: 25px;
+    height: 25px;
+  }
+
+  @media (min-width: $lg) {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.showAllText {
+  color: #fff;
+  margin-top: 15px;
+  font-weight: 500;
+
+  @media (min-width: $md) {
+    margin-top: 22px;
+  }
+}
+
+.slide {
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+
+    .content {
+      background-color: rgba(0 0 0 / 70%);
+    }
+
+    button {
+      opacity: 1;
+    }
+
+    .showAllText {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+# Operating system files and folders
+.DS_Store
+Thumbs.db
+
+# Editor files
+.idea
+*.sublime*
+.vscode
+.prettierignore
+
+# Supporting files
+*.log*
+package-lock.json
+node_modules/
+build/
+
+# api keys
+.env

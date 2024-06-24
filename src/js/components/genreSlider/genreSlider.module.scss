@@ -1,0 +1,149 @@
+@use "../../../scss/common" as *;
+@use "../../../scss/variables" as *;
+
+.genreBlock {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transition: opacity 0.5s ease;
+    z-index: 2;
+    box-shadow: 0 0 30px 30px #15161a;
+    opacity: 0;
+
+    @media (min-width: $md) {
+      box-shadow: 0 0 50px 50px #15161a;
+    }
+
+    @media (min-width: $lg) {
+      box-shadow: 0 0 70px 70px #15161a;
+    }
+
+    @media (min-width: $xl) {
+      box-shadow: 0 0 115px 115px #15161a;
+    }
+  }
+
+  &::after {
+    left: auto;
+    right: 0;
+    opacity: 1;
+  }
+
+  @media (min-width: $md) {
+    margin-bottom: 10px;
+  }
+
+  @media (min-width: $lg) {
+    margin-bottom: 30px;
+  }
+}
+
+.title {
+  font-size: 18px;
+  line-height: 21px;
+  margin: 0 0 17px;
+  position: relative;
+  z-index: 2;
+
+  @media (min-width: $md) {
+    font-size: 21px;
+    line-height: 24px;
+  }
+}
+
+.blockCentered {
+  &::before,
+  &::after {
+    opacity: 1;
+  }
+}
+
+.blockEnd {
+  &::before {
+    opacity: 1;
+  }
+
+  &::after {
+    opacity: 0;
+  }
+}
+
+.slide {
+  width: auto;
+}
+
+.genreBlock .genreBtns {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  visibility: hidden;
+  background-color: #4a5065;
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.slider {
+  overflow: visible;
+
+  &:hover {
+    .genreBtns {
+      visibility: visible;
+    }
+  }
+}
+
+.link {
+  @include font(14px, 18px, 500);
+
+  display: flex;
+  align-items: center;
+  color: #c1c1c1;
+  background-color: #1c1f29;
+  padding: 14px 10px;
+  border-radius: 10px;
+
+  &:hover {
+    background: radial-gradient(130% 100% at 100% 0%, #394057 0%, #1c1f29 100%);
+  }
+
+  @media (min-width: $md) {
+    font-size: 16px;
+    line-height: 20px;
+    padding: 14px 12px;
+  }
+
+  @media (min-width: $lg) {
+    padding: 16px 20px;
+  }
+}
+
+.icon {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+
+  use {
+    fill: #c1c1c1;
+  }
+
+  @media (min-width: $md) {
+    width: 25px;
+    height: 25px;
+  }
+
+  @media (min-width: $lg) {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+  }
+}

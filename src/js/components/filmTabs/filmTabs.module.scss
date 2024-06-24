@@ -1,0 +1,193 @@
+@use "../../../scss/common" as *;
+@use "../../../scss/variables" as *;
+
+.tabs {
+  margin-bottom: 40px;
+  padding-top: 50px;
+}
+
+.tabsList {
+  display: flex;
+  border-bottom: 2px solid #2a2b35;
+}
+
+.tab {
+  @include font(18px, 20px, 500);
+
+  color: #fff;
+  opacity: 0.78;
+  margin-right: 20px;
+  cursor: pointer;
+  padding-bottom: 15px;
+  position: relative;
+  transition:
+    color 0.3s,
+    opacity 0.3s;
+  background-color: transparent;
+
+  &:hover {
+    color: var(--aqua);
+    opacity: 1;
+  }
+}
+
+.tabActive {
+  color: var(--aqua);
+  opacity: 1;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: var(--aqua);
+    bottom: -2px;
+    left: 0;
+  }
+}
+
+.tabContent {
+  max-width: 800px;
+}
+
+.tabContentDesc {
+  max-width: initial;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  @media (min-width: $xl) {
+    flex-direction: row;
+  }
+}
+
+.tabContentBlock {
+  max-width: 800px;
+
+  @media (min-width: $xl) {
+    max-width: 600px;
+    min-width: 300px;
+  }
+
+  @media (min-width: $xxl) {
+    max-width: 800px;
+    min-width: 500px;
+  }
+}
+
+.tabContentHidden {
+  display: none;
+}
+
+.rating {
+  padding: 40px 0 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+
+  @media (min-width: $md) {
+    padding: 50px 0 30px;
+    justify-content: flex-start;
+  }
+
+  @media (min-width: $lg) {
+    padding: 40px 0;
+  }
+
+  @media (min-width: $xl) {
+    padding: 60px 0;
+    justify-content: center;
+  }
+
+  @media (min-width: $xxl) {
+    margin-left: 100px;
+    margin-right: 0;
+  }
+}
+
+.ratingTitle {
+  @include font(20px, 24px, 600);
+
+  margin: 0 60px;
+
+  @media (min-width: $md) {
+    font-size: 22px;
+    line-height: 26px;
+    margin: 0;
+  }
+
+  @media (min-width: $lg) {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  @media (min-width: $xl) {
+    font-size: 32px;
+    line-height: 36px;
+  }
+}
+
+.ratingBlock {
+  margin: 15px 60px 0;
+
+  @media (min-width: $md) {
+    margin: 0 0 0 60px;
+  }
+}
+
+.ratingText {
+  @include font(28px, 32px, 900);
+
+  margin: 0;
+  text-align: center;
+}
+
+.ratingDesc {
+  @include font(24px, 28px, 400);
+
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.tabText {
+  @include font(14px, 20px, 400);
+
+  opacity: 0.78;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+
+  @media (min-width: $md) {
+    font-size: 16px;
+    line-height: 23px;
+  }
+
+  @media (min-width: $lg) {
+    font-size: 18px;
+    line-height: 25px;
+  }
+}
+
+.tabTextShow {
+  overflow: visible;
+  text-overflow: initial;
+  -webkit-line-clamp: initial;
+}
+
+.tabBtn {
+  @include font(16px, 23px, 400);
+
+  background-color: transparent;
+  color: var(--aqua);
+  padding: 0;
+
+  @media (min-width: $md) {
+    font-size: 18px;
+    line-height: 25px;
+  }
+}

@@ -1,0 +1,43 @@
+// breakpoints
+$sm: 320px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1280px;
+$xxl: 1440px;
+
+:root {
+  // elements - colors
+  --aqua: #0ff;
+  --dark-aqua: #04d0d1;
+  --body-bg-color: #15161a;
+  --header-bg-color: #1e1f26;
+  --el-bg-color-primary: #1c1f29;
+  --el-bg-color-primary-hover-100: #272b39;
+  --el-bg-color-primary-hover-200: #2e3243c9;
+  --el-bg-color-primary-active: #434961;
+  --el-bg-color-secondary: #272b39;
+  --el-bg-color-popup-btn: #2e3243;
+
+  // text - colors
+  --grey-text: #ababab;
+
+  // rating-colors
+  --rating-grey: #808080;
+  --rating-green: #1d9b42;
+  --rating-orange: #bd8b20;
+  --rating-red: #cd0000;
+
+  // elements w/h
+  --header-height-mob: 55px;
+  --header-height-desc: 70px;
+  --header-height: var(--header-height-mob);
+  --search-height-mob: 40px;
+  --btn-radius: 8px;
+  --scroll-width: 0px;
+}
+
+@media (min-width: $md) {
+  :root {
+    --header-height: var(--header-height-desc);
+  }
+}
