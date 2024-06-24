@@ -77,7 +77,7 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
+    // publicPath: '/',
     filename: 'js/[name].js',
     clean: mode === 'production',
   },
