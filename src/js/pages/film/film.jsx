@@ -24,16 +24,16 @@ function Film() {
   const { id } = useParams();
   const [isRatingPopup, setRatingPopup] = React.useState(false);
   const [isYtPopup, setYtPopup] = React.useState(false);
-  const { data = {}, isLoading, isError, error } = useGetFilmQuery(id);
+  const { data = {}, isFetching, isError, error } = useGetFilmQuery(id);
   const { actors, otherPersons } = transformPersons(data.persons);
   const isDisabledBtn = data.videos ? !data.videos.trailers.length : true;
 
-  if (isLoading || isError)
+  if (isFetching || isError)
     return (
       <section className={styles.film}>
         <div className={styles.backgroundContainer} />
         <div className={clsx('container', styles.content)}>
-          {isLoading && <Spinner width={75} height={75} />}
+          {isFetching && <Spinner width={75} height={75} />}
           {isError && <span>{error}</span>}
         </div>
       </section>
