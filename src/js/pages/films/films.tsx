@@ -19,10 +19,10 @@ import {
 import { paramsToObject } from '../../utils';
 import sprite from '../../../img/sprite.svg';
 
-function Films(params) {
+function Films(params: { type: string }) {
   const { type } = params;
   const [searchParams, setSearchParams] = useSearchParams();
-  const filmsRef = React.useRef(null);
+  const filmsRef = React.useRef<HTMLDivElement>(null);
   const parsedParams = paramsToObject(searchParams);
   const hasReset = !!Object.keys(parsedParams).length;
   const {
@@ -32,8 +32,9 @@ function Films(params) {
     isFetching,
     isError,
   } = useGetFilmsQuery({ ...parsedParams, type, limit: 42 });
-  const onPaginationClick = (value) => {
-    searchParams.set(selectTypes.page, value);
+
+  const onPaginationClick = (value: number | string) => {
+    searchParams.set(selectTypes.page, String(value));
     setSearchParams(searchParams);
   };
 
@@ -99,7 +100,7 @@ function Films(params) {
             </Select>
           </div>
           {isLoading && <Spinner width={75} height={75} />}
-          {isError && <h2>Error: {error.message}</h2>}
+          {isError && <h2>Error: {'message' in error ? error.message : ''}</h2>}
           {Boolean(!data.docs?.length) && !isLoading && !isError && (
             <h2>Ничего не найдено</h2>
           )}

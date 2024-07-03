@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
 
 import styles from './pagination.module.scss';
 import sprite from '../../../img/sprite.svg';
@@ -8,7 +7,16 @@ import { spriteNames } from '../../const';
 import { calcPaginationArr } from '../../utils';
 import useOnClickOutSide from '../../hooks/useOnClickOutside';
 
-function Pagination({ pages, paramsPage, handler, filmsref }) {
+interface Props {
+  pages: number;
+  // eslint-disable-next-line react/require-default-props
+  paramsPage?: string | null;
+  handler: (v: number | string) => void;
+  // eslint-disable-next-line react/require-default-props
+  filmsref?: RefObject<HTMLDivElement>;
+}
+
+function Pagination({ pages, paramsPage, handler, filmsref }: Props) {
   const activePage = Number(paramsPage) || 1;
   const { ref, isComponentVisible, setIsComponentVisible } =
     useOnClickOutSide(false);
@@ -20,23 +28,25 @@ function Pagination({ pages, paramsPage, handler, filmsref }) {
         getComputedStyle(document.body).getPropertyValue('--header-height'),
         10,
       ) * -1;
-    const y =
-      filmsref.current.getBoundingClientRect().top +
-      window.scrollY +
-      yOffset +
-      -30;
+    const y = filmsref?.current
+      ? filmsref.current.getBoundingClientRect().top +
+        window.scrollY +
+        yOffset +
+        -30
+      : 0;
     window.scrollTo({ top: y, behavior: 'smooth' });
   };
 
-  const onClickLink = (evt, val) => {
+  const onClickLink = (evt: React.MouseEvent, val: number | string) => {
     evt.preventDefault();
     if (activePage === val) return;
     handler(val);
     updateScrollPos();
   };
 
-  const onSubmitForm = (evt) => {
+  const onSubmitForm = (evt: React.FormEvent) => {
     evt.preventDefault();
+    if (!inputRef || !inputRef.current) return;
     const { value } = inputRef.current;
     if (Number(value) !== activePage) handler(value);
     setIsComponentVisible(false);
@@ -154,20 +164,5 @@ function Pagination({ pages, paramsPage, handler, filmsref }) {
     </div>
   );
 }
-
-Pagination.propTypes = {
-  pages: PropTypes.number.isRequired,
-  paramsPage: PropTypes.string,
-  handler: PropTypes.func.isRequired,
-  filmsref: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]),
-};
-
-Pagination.defaultProps = {
-  paramsPage: '',
-  filmsref: () => {},
-};
 
 export default Pagination;

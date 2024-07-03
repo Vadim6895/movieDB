@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 /* eslint-disable import/no-unresolved */
 import { Swiper, SwiperSlide, useSwiperSlide, useSwiper } from 'swiper/react';
@@ -14,28 +13,9 @@ import { useGetPremiereFilmsQuery } from '../../reducer/filmsApi';
 import Spinner from '../spinner/spinner';
 import { linkRoute } from '../../const';
 
-const breakpoints = {
-  320: {
-    slidesPerView: 'auto',
-    spaceBetween: 10,
-  },
-  720: {
-    slidesPerView: 'auto',
-    spaceBetween: 20,
-  },
-};
+import { PremiereFilm } from '../../types';
 
-const clickToSlide = (evt, swiperSlide, swiper, navigate, id) => {
-  evt.preventDefault();
-  if (swiperSlide.isActive) navigate(linkRoute.FILM + id);
-  if (swiperSlide.isNext) {
-    swiper.slideNext();
-  } else {
-    swiper.slidePrev();
-  }
-};
-
-function Slide({ slide }) {
+function Slide({ slide }: { slide: PremiereFilm }) {
   const swiperSlide = useSwiperSlide();
   const swiper = useSwiper();
   const navigate = useNavigate();
@@ -44,9 +24,15 @@ function Slide({ slide }) {
     <Link
       className={styles.link}
       to={linkRoute.FILM + slide.id}
-      onClick={(evt) =>
-        clickToSlide(evt, swiperSlide, swiper, navigate, slide.id)
-      }
+      onClick={(evt) => {
+        evt.preventDefault();
+        if (swiperSlide.isActive) navigate(linkRoute.FILM + slide.id);
+        if (swiperSlide.isNext) {
+          swiper.slideNext();
+        } else {
+          swiper.slidePrev();
+        }
+      }}
     >
       <div className={styles.wrapper} />
       <img className={styles.img} src={slide.backdrop.url} alt="poster" />
@@ -73,23 +59,34 @@ function Slide({ slide }) {
 }
 
 function PromoSlider() {
-  const { data = [], error, isLoading, isError } = useGetPremiereFilmsQuery();
+  const { data, error, isLoading, isError } = useGetPremiereFilmsQuery();
 
   return (
     <section className="page-block page-block--promo">
       {isLoading && <Spinner width={75} height={75} />}
-      {isError && <span>Errror: {error}</span>}
-      {data.docs && (
+      {isError && (
+        <span>Errror: {'message' in error ? error.message : ''}</span>
+      )}
+      {data?.docs && (
         <Swiper
           className={styles.slider}
           centeredSlides
           loop
           speed={700}
-          breakpoints={breakpoints}
+          breakpoints={{
+            320: {
+              slidesPerView: 'auto',
+              spaceBetween: 10,
+            },
+            720: {
+              slidesPerView: 'auto',
+              spaceBetween: 20,
+            },
+          }}
           navigation={sliderBtnsNavigation}
           modules={[Navigation]}
         >
-          {data.docs.map((slide) => (
+          {data.docs.map((slide: PremiereFilm) => (
             <SwiperSlide className={styles.slide} key={slide.id}>
               <Slide slide={slide} />
             </SwiperSlide>
@@ -101,26 +98,5 @@ function PromoSlider() {
     </section>
   );
 }
-
-Slide.propTypes = {
-  slide: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    ageRating: PropTypes.number,
-    movieLength: PropTypes.number.isRequired,
-    backdrop: PropTypes.shape({
-      url: PropTypes.string.isRequired,
-    }),
-    rating: PropTypes.shape({
-      imdb: PropTypes.number.isRequired,
-    }),
-    genres: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-      }),
-    ),
-  }).isRequired,
-};
 
 export default PromoSlider;

@@ -1,9 +1,11 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import api from '../api';
+import { PremieresFilms } from '../types';
 
 const todoApi = createApi({
   reducerPath: 'filmsApi',
+  baseQuery: fetchBaseQuery(),
   endpoints: (builder) => ({
     getFilms: builder.query({
       queryFn: (params) => api.getFilms(params),
@@ -12,7 +14,7 @@ const todoApi = createApi({
       queryFn: (params) => api.getFilms(params, process.env.D_API_2),
       keepUnusedDataFor: Number.MAX_SAFE_INTEGER,
     }),
-    getPremiereFilms: builder.query({
+    getPremiereFilms: builder.query<PremieresFilms, void>({
       queryFn: async () => api.getPremiereFilms(),
       keepUnusedDataFor: Number.MAX_SAFE_INTEGER,
     }),

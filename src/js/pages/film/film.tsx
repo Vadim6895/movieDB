@@ -17,7 +17,11 @@ import FilmBtn from '../../components/filmBtn/filmBtn';
 import sprite from '../../../img/sprite.svg';
 import { spriteNames, appRoute } from '../../const';
 import Spinner from '../../components/spinner/spinner';
-import { getMovieTime, transformPersons } from '../../utils';
+import {
+  getMovieTime,
+  transformPersons,
+  getUniqueItemsByProperties,
+} from '../../utils';
 import FilmSlider from '../../components/filmSlider/filmSlider';
 
 function Film() {
@@ -27,6 +31,11 @@ function Film() {
   const { data = {}, isFetching, isError, error } = useGetFilmQuery(id);
   const { actors, otherPersons } = transformPersons(data.persons);
   const isDisabledBtn = data.videos ? !data.videos.trailers.length : true;
+  const filteredTrailers = getUniqueItemsByProperties(data?.videos?.trailers, [
+    'url',
+  ]);
+
+  console.log(data);
 
   if (isFetching || isError)
     return (
@@ -34,7 +43,7 @@ function Film() {
         <div className={styles.backgroundContainer} />
         <div className={clsx('container', styles.content)}>
           {isFetching && <Spinner width={75} height={75} />}
-          {isError && <span>{error}</span>}
+          {isError && <span>{'message' in error ? error.message : ''}</span>}
         </div>
       </section>
     );
@@ -62,7 +71,7 @@ function Film() {
                   <span className={styles.info}>
                     {data.ageRating && `${data.ageRating}+`}
                   </span>
-                  {data.countries.map((country) => (
+                  {data.countries.map((country: { name: string }) => (
                     <span className={styles.info} key={country.name}>
                       {country.name}
                     </span>
@@ -78,7 +87,7 @@ function Film() {
                 </div>
                 <p className={styles.description}>{data.shortDescription}</p>
                 <div>
-                  {data.genres?.map((genre) => (
+                  {data.genres?.map((genre: { name: string }) => (
                     <Link
                       className={styles.genreLink}
                       to={`${appRoute.FILMS}?genres.name=${genre.name}`}
@@ -94,7 +103,8 @@ function Film() {
                     handler={setYtPopup}
                     disabled={isDisabledBtn}
                   >
-                    Трейлеры ({data.videos ? data.videos.trailers.length : 0})
+                    Трейлеры (
+                    {data.videos?.trailers ? filteredTrailers.length : 0})
                   </FilmBtn>
                   <FilmBtn handler={setRatingPopup}>
                     <svg width={20} height={20}>
@@ -129,12 +139,12 @@ function Film() {
             data={data.sequelsAndPrequels}
           />
         )}
-        {Boolean(actors.length) && <PersonSlider persons={actors} />}
+        {Boolean(actors) && <PersonSlider persons={actors || []} />}
         <section className={styles.authors}>
           <div className="container">
             <h2 className={styles.filmCrew}>Cъёмочная группа</h2>
             <ul className={styles.authorsList}>
-              {otherPersons.map((category) => (
+              {otherPersons?.map((category) => (
                 <li className={styles.authorsItem} key={category[0].profession}>
                   <p className={styles.authorsTitle}>
                     {category[0].profession}:
@@ -177,7 +187,7 @@ function Film() {
             exitActive: ytPopupStyles.popupExitActive,
           }}
         >
-          <YtPopup data={data.videos?.trailers} setVisible={setYtPopup} />
+          <YtPopup data={filteredTrailers} setVisible={setYtPopup} />
         </CSSTransition>
       </>
     );

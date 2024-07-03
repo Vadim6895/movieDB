@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import styles from './sliderBtns.module.scss';
@@ -11,7 +10,7 @@ const sliderBtnsNavigation = {
   prevEl: `.${styles.btnPrev}`,
 };
 
-function SliderBtns({ style = '' }) {
+function SliderBtns({ style = '' }: { style: string }) {
   return (
     <>
       <button
@@ -35,10 +34,6 @@ function SliderBtns({ style = '' }) {
     </>
   );
 }
-
-SliderBtns.propTypes = {
-  style: PropTypes.string.isRequired,
-};
 
 export { sliderBtnsNavigation };
 export default SliderBtns;

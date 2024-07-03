@@ -1,12 +1,17 @@
-const api = async (url, { body, ...customConfig } = {}) => {
-  const headers = { 'Content-Type': 'application/json' };
-  const config = {
+import { dynamicKeysObject } from './types';
+
+const api = async (
+  url = '',
+  { body = null, headers = {}, ...customConfig } = {},
+) => {
+  const defaultHeaders = { 'Content-Type': 'application/json' };
+  const config: dynamicKeysObject = {
     method: body ? 'POST' : 'GET',
-    body: null,
+    body,
     ...customConfig,
     headers: {
+      ...defaultHeaders,
       ...headers,
-      ...customConfig.headers,
     },
   };
 
@@ -54,7 +59,7 @@ api.getPremiereFilms = function premieres() {
   });
 };
 
-api.getFilm = function film(id) {
+api.getFilm = function film(id: number) {
   return api(`${D_URL}/${id}`, {
     headers: { 'X-API-KEY': D_KEY },
   });

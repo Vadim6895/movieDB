@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 /* eslint-disable import/no-unresolved */
@@ -12,6 +11,8 @@ import styles from './filmSlider.module.scss';
 import SliderBtns, { sliderBtnsNavigation } from '../sliderBtns/sliderBtns';
 import { linkRoute } from '../../const';
 import { getRatingColor } from '../../utils';
+
+import { Film } from '../../types';
 
 const breakpoints = {
   320: {
@@ -40,7 +41,7 @@ const breakpoints = {
   },
 };
 
-function Slide({ item }) {
+function Slide({ item }: { item: Film }) {
   const swiper = useSwiper();
 
   return (
@@ -48,7 +49,7 @@ function Slide({ item }) {
       <div className={styles.wrapper}>
         <img
           className={styles.poster}
-          src={item.poster.previewUrl}
+          src={item.poster?.previewUrl}
           alt="Постер"
         />
         <div className={styles.content}>
@@ -68,7 +69,7 @@ function Slide({ item }) {
   );
 }
 
-function FilmSlider({ title, data }) {
+function FilmSlider({ title, data }: { title: string; data: Film[] }) {
   return (
     <section className="page-block">
       <div className="container">
@@ -82,7 +83,7 @@ function FilmSlider({ title, data }) {
             breakpoints={breakpoints}
             navigation={sliderBtnsNavigation}
           >
-            {data.map((item) => (
+            {data.map((item: Film) => (
               <SwiperSlide className={styles.slide} key={item.id}>
                 <Slide item={item} />
               </SwiperSlide>
@@ -94,23 +95,5 @@ function FilmSlider({ title, data }) {
     </section>
   );
 }
-
-Slide.propTypes = {
-  item: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    rating: PropTypes.shape({
-      kp: PropTypes.number,
-    }),
-    name: PropTypes.string,
-    poster: PropTypes.shape({
-      previewUrl: PropTypes.string,
-    }),
-  }).isRequired,
-};
-
-FilmSlider.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  title: PropTypes.string.isRequired,
-};
 
 export default FilmSlider;

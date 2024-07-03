@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 /* eslint-disable import/no-unresolved */
@@ -16,6 +15,8 @@ import Spinner from '../spinner/spinner';
 import sprite from '../../../img/sprite.svg';
 import { spriteNames, linkRoute, appRoute, selectTypes } from '../../const';
 import { getRatingColor } from '../../utils';
+
+import { Film } from '../../types';
 
 const breakpoints = {
   320: {
@@ -44,7 +45,7 @@ const breakpoints = {
   },
 };
 
-function CardsSlider({ genre }) {
+function CardsSlider({ genre }: { genre: { id: string; name: string } }) {
   const {
     data = {},
     error,
@@ -72,7 +73,9 @@ function CardsSlider({ genre }) {
         </Link>
 
         {isLoading && <Spinner width={75} height={75} />}
-        {isError && <span>Error: {error}</span>}
+        {isError && (
+          <span>Error: {'message' in error ? error.message : ''}</span>
+        )}
 
         {data.docs && (
           <Swiper
@@ -82,13 +85,13 @@ function CardsSlider({ genre }) {
             breakpoints={breakpoints}
             navigation={sliderBtnsNavigation}
           >
-            {data.docs.map((item) => (
+            {data.docs.map((item: Film) => (
               <SwiperSlide className={styles.slide} key={item.id}>
                 <Link to={`${linkRoute.FILM}${item.id}`}>
                   <div className={styles.wrapper}>
                     <img
                       className={styles.poster}
-                      src={item.poster.previewUrl}
+                      src={item.poster?.previewUrl}
                       alt=""
                     />
                     <div className={styles.content}>
@@ -98,7 +101,8 @@ function CardsSlider({ genre }) {
                           getRatingColor(item.rating?.kp),
                         )}
                       >
-                        {Boolean(item.rating.kp) && item.rating?.kp?.toFixed(1)}
+                        {Boolean(item.rating?.kp) &&
+                          item.rating?.kp?.toFixed(1)}
                       </div>
                       <div className={styles.btns}>
                         {/* <PageBtn iconName="favorite" /> */}
@@ -134,12 +138,5 @@ function CardsSlider({ genre }) {
     </section>
   );
 }
-
-CardsSlider.propTypes = {
-  genre: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default CardsSlider;

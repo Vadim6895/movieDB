@@ -1,10 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 
 import styles from './select.module.scss';
 import sprite from '../../../img/sprite.svg';
 import { spriteNames } from '../../const';
+
+type Option = { title?: string; name: string; id: string };
+
+interface Props {
+  // eslint-disable-next-line react/require-default-props
+  parsedOption?: string | unknown;
+  options: Option[];
+  optionType: string;
+  searchParams: URLSearchParams;
+  setSearchParams: (params: URLSearchParams) => void;
+  // eslint-disable-next-line react/require-default-props
+  classModif?: string;
+  // eslint-disable-next-line react/require-default-props
+  extraOption?: { type: string; id: string };
+  // eslint-disable-next-line react/require-default-props
+  children?: ReactNode | undefined;
+}
 
 function Select({
   parsedOption,
@@ -15,22 +31,25 @@ function Select({
   classModif,
   extraOption,
   children,
-}) {
+}: Props) {
   const defaultOption = parsedOption
-    ? options.find((item) => item.id === parsedOption)
+    ? (options.find((item) => item.id === parsedOption) as Option)
     : options[0];
   const [openSelect, setOpenSelect] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState(defaultOption);
   const [hoverItem, setHoverItem] = React.useState(defaultOption.id);
-  const ref = React.useRef(null);
-  const scrollRef = React.useRef(null);
+  const ref = React.useRef<HTMLDivElement>(null);
+  const scrollRef = React.useRef<HTMLUListElement>(null);
 
-  function updateScrollPos(index) {
-    let indexOpt = index;
-    if (!index) {
+  function updateScrollPos(index?: number) {
+    if (!scrollRef.current) return;
+    let indexOpt;
+    if (index) {
+      indexOpt = index;
+    } else {
       indexOpt = options.findIndex((item) => item.id === activeItem.id);
     }
-    const actualEl = scrollRef.current.childNodes[indexOpt];
+    const actualEl = scrollRef.current.childNodes[indexOpt] as HTMLElement;
     const listPosTop = scrollRef.current.getBoundingClientRect().top;
     const elPosTop = actualEl.getBoundingClientRect().top;
 
@@ -49,22 +68,22 @@ function Select({
   }
 
   const toggleSelect = React.useCallback(
-    (bool) => {
+    (bool: boolean) => {
       if (activeItem) setHoverItem(activeItem.id);
       setOpenSelect(bool);
     },
     [activeItem, setHoverItem],
   );
 
-  const updateSearchParams = (id) => {
+  const updateSearchParams = (id: string) => {
     if (id !== '0') {
-      if (extraOption.type) {
+      if (extraOption) {
         searchParams.set(extraOption.type, extraOption.id);
       }
       searchParams.set(optionType, id);
       setSearchParams(searchParams);
     } else {
-      if (extraOption.type) {
+      if (extraOption) {
         searchParams.delete(extraOption.type, extraOption.id);
       }
       searchParams.delete(optionType);
@@ -72,7 +91,7 @@ function Select({
     }
   };
 
-  function onKeyNav(evt) {
+  function onKeyNav(evt: React.KeyboardEvent<HTMLDivElement>) {
     let index = options.findIndex((item) => item.id === hoverItem);
 
     if (evt.code === 'ArrowUp') {
@@ -103,26 +122,30 @@ function Select({
     }
   }
 
-  const onClickOption = (item) => {
+  const onClickOption = (item: Option) => {
     setActiveItem(item);
     setHoverItem(item.id);
     updateSearchParams(item.id);
   };
 
-  const onMoveOption = (evt) => {
-    if (evt.target.classList.contains(styles.item)) {
+  const onMoveOption = (evt: React.MouseEvent<HTMLUListElement>) => {
+    if (
+      evt.target instanceof HTMLElement &&
+      evt.target.classList.contains(styles.item)
+    ) {
       const id = evt.target.getAttribute('data-id');
-      if (id !== hoverItem) setHoverItem(id);
+      if (id && id !== hoverItem) setHoverItem(id);
     }
   };
 
   React.useEffect(() => {
-    function onClickOutSide(evt) {
-      if (ref.current && !ref.current.contains(evt.target)) {
+    function onClickOutSide(evt: MouseEvent) {
+      const target = evt.target as HTMLElement;
+      if (ref.current && !ref.current.contains(target)) {
         toggleSelect(false);
       }
     }
-    function onEscKeyDown(evt) {
+    function onEscKeyDown(evt: KeyboardEvent) {
       if (evt.key === 'Escape') {
         toggleSelect(false);
       }
@@ -192,32 +215,5 @@ function Select({
     </div>
   );
 }
-
-Select.propTypes = {
-  parsedOption: PropTypes.string,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string,
-      name: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
-  optionType: PropTypes.string.isRequired,
-  searchParams: PropTypes.instanceOf(URLSearchParams).isRequired,
-  setSearchParams: PropTypes.func.isRequired,
-  classModif: PropTypes.string,
-  extraOption: PropTypes.shape({
-    type: PropTypes.string,
-    id: PropTypes.string,
-  }),
-  children: PropTypes.node,
-};
-
-Select.defaultProps = {
-  children: '',
-  classModif: '',
-  parsedOption: '',
-  extraOption: {},
-};
 
 export default React.memo(Select);

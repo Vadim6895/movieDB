@@ -402,21 +402,21 @@
     }
   }
 
-  &[disabled] {
-    pointer-events: none;
-    color: var(--grey-text);
-
-    svg {
-      fill: var(--grey-text);
-    }
-  }
-
   @media (min-width: $md) {
     padding: 20px 0;
   }
 
   @media (min-width: $xl) {
     min-width: 122px;
+  }
+}
+
+.linkFavorite.linkDisabled {
+  pointer-events: none;
+  color: var(--grey-text);
+
+  svg {
+    fill: var(--grey-text);
   }
 }
 

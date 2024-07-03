@@ -1,10 +1,17 @@
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 import styles from './filmTabs.module.scss';
 
-const FilmTabs = memo(({ description, ratingKp, ratingImdb }) => {
+interface Props {
+  // eslint-disable-next-line react/require-default-props
+  description?: string;
+  ratingKp: number;
+  ratingImdb: number;
+}
+
+const FilmTabs = memo(({ description, ratingKp, ratingImdb }: Props) => {
   const [activeTab, setActiveTab] = React.useState(1);
   const [openDesc, setOpenDesc] = React.useState(false);
 
@@ -74,15 +81,5 @@ const FilmTabs = memo(({ description, ratingKp, ratingImdb }) => {
     </section>
   );
 });
-
-FilmTabs.propTypes = {
-  description: PropTypes.string,
-  ratingKp: PropTypes.number.isRequired,
-  ratingImdb: PropTypes.number.isRequired,
-};
-
-FilmTabs.defaultProps = {
-  description: '',
-};
 
 export default FilmTabs;

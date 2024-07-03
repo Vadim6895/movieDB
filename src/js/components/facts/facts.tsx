@@ -1,11 +1,16 @@
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import styles from './facts.module.scss';
 import { FACTS_COUNT } from '../../const';
 
-function Fact({ fact, index }) {
+interface Fact {
+  type: string;
+  value: string;
+  spoiler: boolean;
+}
+
+function Fact({ fact, index }: { fact: Fact; index: number }) {
   const [showSpoiler, setShowSpoiler] = React.useState(fact.spoiler);
   return (
     <li className={styles.factsItem}>
@@ -36,7 +41,7 @@ function Fact({ fact, index }) {
   );
 }
 
-const Facts = memo(({ facts }) => {
+const Facts = memo(({ facts }: { facts: Fact[] }) => {
   const [showedFactsCount, setOpenFacts] = React.useState(FACTS_COUNT);
   const showBtn = showedFactsCount < facts.length;
 
@@ -62,23 +67,5 @@ const Facts = memo(({ facts }) => {
     </section>
   );
 });
-
-Fact.propTypes = {
-  fact: PropTypes.shape({
-    spoiler: PropTypes.bool.isRequired,
-    value: PropTypes.string.isRequired,
-  }).isRequired,
-  index: PropTypes.number.isRequired,
-};
-
-Facts.propTypes = {
-  facts: PropTypes.arrayOf(
-    PropTypes.shape({
-      spoiler: PropTypes.bool.isRequired,
-      type: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-};
 
 export default Facts;

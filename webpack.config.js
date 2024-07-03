@@ -16,18 +16,18 @@ if ((process.env.NODE_ENV || '').trim() === 'production') {
   sourceMap = false;
 }
 
-const generateHtmlPlugins = () => {
-  const pages = fs.readdirSync('./src');
-  const htmlPageNames = pages.filter((page) => page.split('.')[1] === 'html');
+// const generateHtmlPlugins = () => {
+//   const pages = fs.readdirSync('./src');
+//   const htmlPageNames = pages.filter((page) => page.split('.')[1] === 'html');
 
-  return htmlPageNames.map((fileName) => {
-    const [name, extension] = fileName.split('.');
-    return new HtmlWebpackPlugin({
-      template: `./src/${name}.${extension}`,
-      filename: `${name}.${extension}`,
-    });
-  });
-};
+//   return htmlPageNames.map((fileName) => {
+//     const [name, extension] = fileName.split('.');
+//     return new HtmlWebpackPlugin({
+//       template: `./src/${name}.${extension}`,
+//       filename: `${name}.${extension}`,
+//     });
+//   });
+// };
 
 const plugins = [
   mode === 'development' && new ReactRefreshWebpackPlugin(),
@@ -57,7 +57,7 @@ const plugins = [
       progressive: true,
     },
   }),
-].concat(generateHtmlPlugins());
+]; // .concat(generateHtmlPlugins());
 
 module.exports = {
   mode,
@@ -65,7 +65,7 @@ module.exports = {
   plugins,
   devtool: sourceMap,
   entry: {
-    bundle: './src/js/index.jsx',
+    bundle: './src/js/index.tsx',
   },
   devServer: {
     historyApiFallback: true,
@@ -145,22 +145,49 @@ module.exports = {
           filename: 'fonts/[name][ext]',
         },
       },
+      // {
+      //   test: /\.(ts|tsx|js)/,
+      //   exclude: /node_modules/,
+      //   resolve: {
+      //     extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      //   },
+      //   use: {
+      //     loader: 'babel-loader',
+      //     options: {
+      //       presets: [
+      //         '@babel/preset-env',
+      //         '@babel/preset-react',
+      //         '@babel/preset-typescript',
+      //       ],
+      //       cacheDirectory: true,
+      //       plugins: [
+      //         mode === 'development' && require.resolve('react-refresh/babel'),
+      //       ].filter(Boolean),
+      //     },
+      //   },
+      // },
       {
-        test: /\.(js|jsx)/,
+        test: /\.(ts|tsx|js)/,
         exclude: /node_modules/,
         resolve: {
-          extensions: ['.js', '.jsx'],
+          extensions: ['.tsx', '.ts', '.js', '.jsx'],
         },
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            cacheDirectory: true,
-            plugins: [
-              mode === 'development' && require.resolve('react-refresh/babel'),
-            ].filter(Boolean),
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              cacheDirectory: true,
+              plugins: [
+                mode === 'development' &&
+                  require.resolve('react-refresh/babel'),
+              ].filter(Boolean),
+            },
           },
-        },
+          {
+            loader: 'ts-loader',
+          },
+        ],
       },
     ],
   },

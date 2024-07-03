@@ -12,25 +12,18 @@ import SliderBtns, { sliderBtnsNavigation } from '../sliderBtns/sliderBtns';
 import { allGenresNames, appRoute } from '../../const';
 import genreSprite from '../../../img/genre-sprite.svg';
 
-const breakpoints = {
-  320: {
-    slidesPerView: 'auto',
-    spaceBetween: 10,
-  },
-  720: {
-    slidesPerView: 'auto',
-    spaceBetween: 15,
-  },
-  1024: {
-    slidesPerView: 'auto',
-    spaceBetween: 20,
-  },
-};
+interface IsliderPos {
+  isBeginning: boolean;
+  isEnd: boolean;
+}
 
 function GenreSlider() {
-  const [sliderPos, setSliderPos] = React.useState();
+  const [sliderPos, setSliderPos] = React.useState({
+    isBeginning: true,
+    isEnd: false,
+  });
 
-  const changeShadow = (pos) => {
+  const changeShadow = (pos: IsliderPos) => {
     if (!pos || pos.isBeginning) return '';
     if (!pos.isBeginning && !pos.isEnd) return styles.blockCentered;
     return styles.blockEnd;
@@ -46,7 +39,20 @@ function GenreSlider() {
         <Swiper
           speed={700}
           modules={[Navigation]}
-          breakpoints={breakpoints}
+          breakpoints={{
+            320: {
+              slidesPerView: 'auto',
+              spaceBetween: 10,
+            },
+            720: {
+              slidesPerView: 'auto',
+              spaceBetween: 15,
+            },
+            1024: {
+              slidesPerView: 'auto',
+              spaceBetween: 20,
+            },
+          }}
           className={styles.slider}
           navigation={sliderBtnsNavigation}
           onSlideChange={(swiper) => {

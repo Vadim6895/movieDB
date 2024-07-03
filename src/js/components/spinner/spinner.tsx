@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import styles from './spinner.module.scss';
 
-function Spinner({ width, height }) {
+function Spinner({ width, height }: { width: number; height: number }) {
   return (
     <div className={styles.wrapper}>
       <span
@@ -14,7 +13,16 @@ function Spinner({ width, height }) {
   );
 }
 
-function SmallSpinner({ width, height, stroke = 3 }) {
+function SmallSpinner({
+  width,
+  height,
+  stroke = 3,
+}: {
+  width: number;
+  height: number;
+  // eslint-disable-next-line react/require-default-props
+  stroke?: number;
+}) {
   return (
     <span
       className={styles.loader}
@@ -26,21 +34,6 @@ function SmallSpinner({ width, height, stroke = 3 }) {
     />
   );
 }
-
-SmallSpinner.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  stroke: PropTypes.number,
-};
-
-SmallSpinner.defaultProps = {
-  stroke: 3,
-};
-
-Spinner.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-};
 
 export default Spinner;
 export { SmallSpinner };

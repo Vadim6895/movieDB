@@ -10,7 +10,7 @@ function Main() {
     <>
       <PromoSlider />
       <GenreSlider />
-      {allGenresNames.slice(1, 6).map((item) => (
+      {allGenresNames.slice(1, 5).map((item) => (
         <CardsSlider genre={item} key={item.id} />
       ))}
     </>

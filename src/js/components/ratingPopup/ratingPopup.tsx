@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import styles from './ratingPopup.module.scss';
@@ -7,21 +6,21 @@ import sprite from '../../../img/sprite.svg';
 import { spriteNames } from '../../const';
 import useModalEffect from '../../hooks/useModalEffect';
 
-function RatingPopup({ setVisible }) {
-  const [activeItem, setActiveItem] = React.useState(false);
+function RatingPopup({ setVisible }: { setVisible: (v: boolean) => void }) {
+  const [activeItem, setActiveItem] = React.useState(-1);
   const [hoverItem, setHoverItem] = React.useState(7);
 
-  const checkActiveItem = (item) => {
+  const checkActiveItem = (item: number) => {
     if (!hoverItem && item <= activeItem) return styles.ratingItemActive;
     if (item <= hoverItem) return styles.ratingItemActive;
     return false;
   };
 
   const onMouseLeave = () => {
-    if (!activeItem) {
+    if (activeItem < 0) {
       setHoverItem(7);
     } else {
-      setHoverItem(false);
+      setHoverItem(activeItem);
     }
     return false;
   };
@@ -60,14 +59,14 @@ function RatingPopup({ setVisible }) {
               >
                 <label
                   className={clsx(styles.ratingItem, checkActiveItem(item))}
-                  htmlFor={item}
+                  htmlFor={String(item)}
                 >
                   <span className={styles.ratingText}>{item}</span>
                   <input
                     className="hidden"
                     type="radio"
                     value={item}
-                    id={item}
+                    id={String(item)}
                   />
                 </label>
               </div>
@@ -84,9 +83,5 @@ function RatingPopup({ setVisible }) {
     </div>
   );
 }
-
-RatingPopup.propTypes = {
-  setVisible: PropTypes.func.isRequired,
-};
 
 export default RatingPopup;

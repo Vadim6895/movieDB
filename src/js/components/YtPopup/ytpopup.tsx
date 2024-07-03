@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import styles from './ytpopup.module.scss';
@@ -8,10 +7,17 @@ import { spriteNames } from '../../const';
 import { youtubeParser } from '../../utils';
 import useModalEffect from '../../hooks/useModalEffect';
 
+import { Trailer } from '../../types';
+
+interface Props {
+  data: Trailer[];
+  setVisible: (v: boolean) => void;
+}
+
 /* eslint-disable */
-function YtPopup({ data, setVisible }) {
+function YtPopup({ data, setVisible }: Props) {
   useModalEffect(setVisible);
-  const [activeItem, setActiveITem] = React.useState({ index: 0 });
+  const [activeItem, setActiveITem] = React.useState({ index: 0, url: '' });
 
   return (
     <div className={styles.overlay} onClick={() => setVisible(false)}>
@@ -73,17 +79,5 @@ function YtPopup({ data, setVisible }) {
     </div>
   );
 }
-
-YtPopup.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      site: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-    }).isRequired,
-  ),
-  setVisible: PropTypes.func.isRequired,
-};
 
 export default YtPopup;

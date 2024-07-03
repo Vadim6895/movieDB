@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
@@ -6,7 +6,26 @@ import styles from './filmsContainer.module.scss';
 import { getRatingColor } from '../../utils';
 import { linkRoute } from '../../const';
 
-function filmsContainer({ films, filmsref, loading }) {
+interface Film {
+  id: number;
+  poster?: {
+    previewUrl: string;
+  };
+  rating?: {
+    kp: number;
+  };
+  name: string;
+}
+
+interface Props {
+  films: {
+    docs: Film[];
+  };
+  filmsref: RefObject<HTMLDivElement>;
+  loading: boolean;
+}
+
+function filmsContainer({ films, filmsref, loading }: Props) {
   return (
     <div
       className={clsx(styles.filmsWrapper, loading && styles.filmsWrapperLoad)}
@@ -27,7 +46,7 @@ function filmsContainer({ films, filmsref, loading }) {
             <div
               className={clsx(styles.rating, getRatingColor(item.rating?.kp))}
             >
-              {Boolean(item.rating.kp) && item.rating?.kp?.toFixed(1)}
+              {Boolean(item.rating?.kp) && item.rating?.kp?.toFixed(1)}
             </div>
             <div className={styles.btns}>
               {/* <PageBtn iconName="favorite" /> */}

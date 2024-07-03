@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 /* eslint-disable import/no-unresolved */
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -9,6 +8,13 @@ import 'swiper/css';
 
 import styles from './personSlider.module.scss';
 import SliderBtns, { sliderBtnsNavigation } from '../sliderBtns/sliderBtns';
+
+interface Persons {
+  id: number;
+  photo: string;
+  name?: string;
+  enName?: string;
+}
 
 const breakpoints = {
   320: {
@@ -37,7 +43,7 @@ const breakpoints = {
   },
 };
 
-function PersonSlider({ persons }) {
+function PersonSlider({ persons }: { persons: Persons[] }) {
   return (
     <section className="page-block">
       <div className="container">
@@ -70,16 +76,5 @@ function PersonSlider({ persons }) {
     </section>
   );
 }
-
-PersonSlider.propTypes = {
-  persons: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      photo: PropTypes.string.isRequired,
-      name: PropTypes.string,
-      enName: PropTypes.string,
-    }),
-  ).isRequired,
-};
 
 export default PersonSlider;

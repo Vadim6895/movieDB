@@ -1,18 +1,19 @@
 import React from 'react';
 
-function useOnClickOutside(initialIsVisible) {
+function useOnClickOutside(initialIsVisible: boolean) {
   const [isComponentVisible, setIsComponentVisible] =
     React.useState(initialIsVisible);
-  const ref = React.useRef(null);
+  const ref = React.useRef<HTMLDivElement>(null);
 
-  const onKeyDown = (evt) => {
+  const onKeyDown = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
       setIsComponentVisible(false);
     }
   };
 
-  const onClickOutside = (evt) => {
-    if (ref.current && !ref.current.contains(evt.target)) {
+  const onClickOutside = (evt: MouseEvent) => {
+    const target = evt.target as HTMLElement;
+    if (ref.current && !ref.current.contains(target)) {
       setIsComponentVisible(false);
     }
   };

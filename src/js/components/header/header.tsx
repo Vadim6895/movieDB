@@ -13,12 +13,21 @@ import sprite from '../../../img/sprite.svg';
 import { spriteNames, appRoute, linkRoute } from '../../const';
 import Spinner, { SmallSpinner } from '../spinner/spinner';
 
-const setActiveLink = ({ isActive }) =>
+interface SearchFilm {
+  filmId: number;
+  posterUrlPreview?: string;
+  nameRu?: string;
+  nameEn?: string;
+  year?: string;
+  rating?: string;
+}
+
+const setActiveLink = ({ isActive }: { isActive: boolean }) =>
   isActive ? `${styles.link} ${styles.activeLink}` : styles.link;
 
 function Header() {
   const [isOpen, setOpenMenu] = React.useState(false);
-  const headerRef = React.useRef(null);
+  const headerRef = React.useRef<HTMLElement>(null);
   const [search, setOpenSearch] = React.useState(false);
   const [typing, setTyping] = React.useState(false);
   const [searchText, setSearchText] = React.useState('');
@@ -27,13 +36,13 @@ function Header() {
   const [fetchFilms, { data = { films: [] }, error, isFetching, isError }] =
     useLazySearchFilmQuery();
 
-  const toggleMenu = (open) => {
+  const toggleMenu = (open: boolean) => {
     if (window.matchMedia('(min-width: 1024px)').matches) return;
     if (open) {
-      document.body.style = '';
+      document.body.setAttribute('style', '');
       setOpenMenu(false);
     } else {
-      document.body.style = 'overflow: hidden;';
+      document.body.setAttribute('style', 'overflow: hidden;');
       setOpenMenu(true);
       setOpenSearch(false);
     }
@@ -42,6 +51,7 @@ function Header() {
   React.useEffect(() => {
     let prevPos = window.scrollY;
     window.addEventListener('scroll', () => {
+      if (!headerRef || !headerRef.current) return;
       const currentPos = window.scrollY;
       const openedSearch = headerRef.current.classList.contains('headerSearch');
       if (currentPos > prevPos && !openedSearch) {
@@ -87,8 +97,8 @@ function Header() {
     [fetchFilms],
   );
 
-  const setSearchKeyword = (evt) => {
-    const { value } = evt.target;
+  const setSearchKeyword = (evt: React.ChangeEvent) => {
+    const { value } = evt.target as HTMLInputElement;
     setTyping(true);
     setPage(1);
     setTextRequest(true);
@@ -96,22 +106,22 @@ function Header() {
     debouncedRequest(value);
   };
 
-  const toggleSearch = (open) => {
-    function onEscKeyDown(evt) {
+  const toggleSearch = (open: boolean) => {
+    function onEscKeyDown(evt: KeyboardEvent) {
       if (evt.key === 'Escape') {
         setOpenSearch(false);
-        document.body.style = '';
+        document.body.setAttribute('style', '');
         document.removeEventListener('keydown', onEscKeyDown);
       }
     }
 
     if (open) {
-      document.body.style = 'overflow: hidden;';
+      document.body.setAttribute('style', 'overflow: hidden;');
       document.addEventListener('keydown', onEscKeyDown);
       setOpenSearch(true);
       setOpenMenu(false);
     } else {
-      document.body.style = '';
+      document.body.setAttribute('style', '');
       document.removeEventListener('keydown', onEscKeyDown);
       clearSearch();
       setOpenSearch(false);
@@ -127,11 +137,11 @@ function Header() {
         <Link to={appRoute.MAIN}>
           <picture>
             <source
-              srcSet={logoDesktop}
+              srcSet={String(logoDesktop)}
               media="(min-width: 768px)"
               width="180px"
             />
-            <img className={styles.logo} src={logoMobile} alt="logo" />
+            <img className={styles.logo} src={String(logoMobile)} alt="logo" />
           </picture>
         </Link>
         <nav className={clsx(styles.nav, isOpen && styles.navOpen)}>
@@ -204,7 +214,10 @@ function Header() {
               </>
             )}
           </button>
-          <Link className={styles.linkFavorite} to={appRoute.MAIN} disabled>
+          <Link
+            className={clsx(styles.linkFavorite, styles.linkDisabled)}
+            to={appRoute.MAIN}
+          >
             <svg className={styles.headerIcon} width="24px" height="24px">
               <use xlinkHref={`${sprite}#${spriteNames.common.favorite}`} />
             </svg>
@@ -278,7 +291,9 @@ function Header() {
               )}
             >
               {textRequest && <Spinner width={75} height={75} />}
-              {isError && <h2>Error: {error.message}</h2>}
+              {isError && (
+                <h2>Error: {'message' in error ? error.message : ''}</h2>
+              )}
               {!data.films.length &&
                 !isError &&
                 searchText &&
@@ -293,7 +308,7 @@ function Header() {
                 <>
                   <h2 className={styles.searchTitle}>Результаты:</h2>
                   <div className={styles.searchGrid}>
-                    {data.films.map((item) => (
+                    {data.films.map((item: SearchFilm) => (
                       <Link
                         className={styles.searchItemLink}
                         to={linkRoute.FILM + item.filmId}
