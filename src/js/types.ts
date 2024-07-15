@@ -73,5 +73,5 @@ export type dynamicKeysObject = {
 };
 
 export interface Trailer {
-  [key: string | 'name' | 'site' | 'type' | 'url']: string;
+  [key: string]: string;
 }

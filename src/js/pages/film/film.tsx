@@ -35,8 +35,6 @@ function Film() {
     'url',
   ]);
 
-  console.log(data);
-
   if (isFetching || isError)
     return (
       <section className={styles.film}>
