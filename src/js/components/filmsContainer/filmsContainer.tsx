@@ -6,16 +6,7 @@ import styles from './filmsContainer.module.scss';
 import { getRatingColor } from '../../utils';
 import { linkRoute } from '../../const';
 
-interface Film {
-  id: number;
-  poster?: {
-    previewUrl: string;
-  };
-  rating?: {
-    kp: number;
-  };
-  name: string;
-}
+import { Film } from '../../types';
 
 interface Props {
   films: {

@@ -9,12 +9,7 @@ import 'swiper/css';
 import styles from './personSlider.module.scss';
 import SliderBtns, { sliderBtnsNavigation } from '../sliderBtns/sliderBtns';
 
-interface Persons {
-  id: number;
-  photo: string;
-  name?: string;
-  enName?: string;
-}
+import { Person } from '../../types';
 
 const breakpoints = {
   320: {
@@ -43,7 +38,7 @@ const breakpoints = {
   },
 };
 
-function PersonSlider({ persons }: { persons: Persons[] }) {
+function PersonSlider({ persons }: { persons: Person[] }) {
   return (
     <section className="page-block">
       <div className="container">
