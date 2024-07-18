@@ -16,5 +16,6 @@
     "skipLibCheck": true,
     "strict": true,
     "useUnknownInCatchVariables": false
-  }
+  },
+  "exclude": ["./build/**/*", "./webpack.config.js"]
 }
