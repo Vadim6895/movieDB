@@ -18,6 +18,11 @@ function App() {
           <Route index element={<Main />} />
           <Route path={appRoute.FILMS} element={<Films type="movie" />} />
           <Route path={appRoute.SERIALS} element={<Films type="tv-series" />} />
+          <Route path={appRoute.CARTOON} element={<Films type="cartoon" />} />
+          <Route
+            path={appRoute.ANIMATED_SERIES}
+            element={<Films type="animated-series" />}
+          />
           <Route path={appRoute.FILM} element={<Film />} />
           <Route path="*" element={<NotFound />} />
         </Route>

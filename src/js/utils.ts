@@ -1,4 +1,4 @@
-import { ratingName } from './const';
+import { ratingName, pageTypes } from './const';
 import {
   Person,
   dynamicPersonObject,
@@ -132,4 +132,19 @@ export const getUniqueItemsByProperties = (
         isPropValuesEqual(foundItem, item, propNames),
       ),
   );
+};
+
+export const getPageTitle = (type: string) => {
+  switch (type) {
+    case pageTypes.MOVIE:
+      return 'Фильмы';
+    case pageTypes.SERIALS:
+      return 'Сериалы';
+    case pageTypes.CARTOON:
+      return 'Мультфильмы';
+    case pageTypes.ANIMATED_SERIES:
+      return 'Мультсериалы';
+    default:
+      return '';
+  }
 };

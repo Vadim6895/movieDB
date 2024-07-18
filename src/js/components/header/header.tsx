@@ -191,6 +191,24 @@ function Header() {
                   Сериалы
                 </NavLink>
               </li>
+              <li>
+                <NavLink
+                  className={setActiveLink}
+                  to={appRoute.CARTOON}
+                  onClick={() => toggleMenu(isOpen)}
+                >
+                  Мультфильмы
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className={setActiveLink}
+                  to={appRoute.ANIMATED_SERIES}
+                  onClick={() => toggleMenu(isOpen)}
+                >
+                  Мультсериалы
+                </NavLink>
+              </li>
             </ul>
           )}
         </nav>

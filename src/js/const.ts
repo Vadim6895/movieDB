@@ -2,8 +2,17 @@ export const appRoute = {
   MAIN: '/',
   FILMS: '/films/',
   FILM: '/film/:id',
-  SERIALS: '/serials',
+  SERIALS: '/serials/',
+  CARTOON: '/cartoon/',
+  ANIMATED_SERIES: '/animated-series/',
   PERSON: '/person/:id',
+};
+
+export const pageTypes = {
+  MOVIE: 'movie',
+  SERIALS: 'tv-series',
+  CARTOON: 'cartoon',
+  ANIMATED_SERIES: 'animated-series',
 };
 
 export const linkRoute = {

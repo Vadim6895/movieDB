@@ -16,7 +16,7 @@ import {
   sortTypes,
   spriteNames,
 } from '../../const';
-import { paramsToObject } from '../../utils';
+import { paramsToObject, getPageTitle } from '../../utils';
 import sprite from '../../../img/sprite.svg';
 
 function Films(params: { type: string }) {
@@ -45,9 +45,7 @@ function Films(params: { type: string }) {
   return (
     <section className={styles.films}>
       <div className="container">
-        <h1 className={styles.title}>
-          {type === 'movie' ? 'Фильмы' : 'Сериалы'}
-        </h1>
+        <h1 className={styles.title}>{getPageTitle(type)}</h1>
 
         <div className={styles.controls}>
           <div className={styles.filters}>
