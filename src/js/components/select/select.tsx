@@ -4,8 +4,9 @@ import clsx from 'clsx';
 import styles from './select.module.scss';
 import sprite from '../../../img/sprite.svg';
 import { spriteNames } from '../../const';
+import { updateScrollPos } from '../../utils';
 
-type Option = { title?: string; name: string; id: string };
+import { Option } from '../../types';
 
 interface Props {
   // eslint-disable-next-line react/require-default-props
@@ -41,32 +42,6 @@ function Select({
   const ref = React.useRef<HTMLDivElement>(null);
   const scrollRef = React.useRef<HTMLUListElement>(null);
 
-  function updateScrollPos(index?: number) {
-    if (!scrollRef.current) return;
-    let indexOpt;
-    if (index) {
-      indexOpt = index;
-    } else {
-      indexOpt = options.findIndex((item) => item.id === activeItem.id);
-    }
-    const actualEl = scrollRef.current.childNodes[indexOpt] as HTMLElement;
-    const listPosTop = scrollRef.current.getBoundingClientRect().top;
-    const elPosTop = actualEl.getBoundingClientRect().top;
-
-    if (elPosTop < listPosTop) {
-      const difference = listPosTop - elPosTop;
-      scrollRef.current.scrollBy(0, -difference - 10);
-    }
-
-    const listPosBottom = scrollRef.current.getBoundingClientRect().bottom;
-    const elPosBottom = actualEl.getBoundingClientRect().bottom;
-
-    if (elPosBottom > listPosBottom) {
-      const difference = elPosBottom - listPosBottom;
-      scrollRef.current.scrollBy(0, difference + 10);
-    }
-  }
-
   const toggleSelect = React.useCallback(
     (bool: boolean) => {
       if (activeItem) setHoverItem(activeItem.id);
@@ -100,7 +75,7 @@ function Select({
       else index -= 1;
       evt.preventDefault();
       setHoverItem(options[index].id);
-      updateScrollPos(index);
+      updateScrollPos(activeItem, options, scrollRef, index);
     }
 
     if (evt.code === 'ArrowDown') {
@@ -109,7 +84,7 @@ function Select({
       else index += 1;
       evt.preventDefault();
       setHoverItem(options[index].id);
-      updateScrollPos(index);
+      updateScrollPos(activeItem, options, scrollRef, index);
     }
 
     if (evt.code === 'Enter' || evt.code === 'Space') {
@@ -161,9 +136,9 @@ function Select({
 
   React.useEffect(() => {
     if (activeItem && openSelect) {
-      updateScrollPos();
+      updateScrollPos(activeItem, options, scrollRef);
     }
-  }, [openSelect]);
+  }, [openSelect, activeItem, options]);
 
   React.useEffect(() => {
     if (!parsedOption) setActiveItem(options[0]);

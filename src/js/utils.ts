@@ -4,6 +4,7 @@ import {
   dynamicPersonObject,
   dynamicKeysObject,
   Trailer,
+  Option,
 } from './types';
 
 export const getRatingColor = (rating: string | number | undefined) => {
@@ -148,3 +149,34 @@ export const getPageTitle = (type: string) => {
       return '';
   }
 };
+
+export function updateScrollPos(
+  activeItem: Option,
+  options: Option[],
+  scrollRef?: React.RefObject<HTMLUListElement>,
+  index?: number,
+) {
+  if (!scrollRef?.current) return;
+  let indexOpt;
+  if (index) {
+    indexOpt = index;
+  } else {
+    indexOpt = options.findIndex((item) => item.id === activeItem.id);
+  }
+  const actualEl = scrollRef.current.childNodes[indexOpt] as HTMLElement;
+  const listPosTop = scrollRef.current.getBoundingClientRect().top;
+  const elPosTop = actualEl.getBoundingClientRect().top;
+
+  if (elPosTop < listPosTop) {
+    const difference = listPosTop - elPosTop;
+    scrollRef.current.scrollBy(0, -difference - 10);
+  }
+
+  const listPosBottom = scrollRef.current.getBoundingClientRect().bottom;
+  const elPosBottom = actualEl.getBoundingClientRect().bottom;
+
+  if (elPosBottom > listPosBottom) {
+    const difference = elPosBottom - listPosBottom;
+    scrollRef.current.scrollBy(0, difference + 10);
+  }
+}

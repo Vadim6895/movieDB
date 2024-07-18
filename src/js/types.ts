@@ -75,3 +75,5 @@ export type dynamicKeysObject = {
 export interface Trailer {
   [key: string]: string;
 }
+
+export type Option = { title?: string; name: string; id: string };
