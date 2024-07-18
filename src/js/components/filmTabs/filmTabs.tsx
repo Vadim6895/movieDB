@@ -1,11 +1,9 @@
 import React, { memo } from 'react';
-// import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 import styles from './filmTabs.module.scss';
 
 interface Props {
-  // eslint-disable-next-line react/require-default-props
   description?: string;
   ratingKp: number;
   ratingImdb: number;

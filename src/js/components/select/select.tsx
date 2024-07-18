@@ -9,17 +9,13 @@ import { updateScrollPos } from '../../utils';
 import { Option } from '../../types';
 
 interface Props {
-  // eslint-disable-next-line react/require-default-props
   parsedOption?: string | unknown;
   options: Option[];
   optionType: string;
   searchParams: URLSearchParams;
   setSearchParams: (params: URLSearchParams) => void;
-  // eslint-disable-next-line react/require-default-props
   classModif?: string;
-  // eslint-disable-next-line react/require-default-props
   extraOption?: { type: string; id: string };
-  // eslint-disable-next-line react/require-default-props
   children?: ReactNode | undefined;
 }
 

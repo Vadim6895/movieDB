@@ -9,10 +9,8 @@ import useOnClickOutSide from '../../hooks/useOnClickOutside';
 
 interface Props {
   pages: number;
-  // eslint-disable-next-line react/require-default-props
   paramsPage?: string | null;
   handler: (v: number | string) => void;
-  // eslint-disable-next-line react/require-default-props
   filmsref?: RefObject<HTMLDivElement>;
 }
 

@@ -51,5 +51,7 @@ module.exports = {
       1,
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
+    'react/prop-types': 'off',
+    'react/require-default-props': 'off',
   },
 };

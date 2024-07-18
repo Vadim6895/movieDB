@@ -4,11 +4,8 @@ import clsx from 'clsx';
 import styles from './filmBtn.module.scss';
 
 interface Props {
-  // eslint-disable-next-line react/require-default-props
   trailer?: boolean;
-  // eslint-disable-next-line react/require-default-props
   handler?: (v: boolean) => void;
-  // eslint-disable-next-line react/require-default-props
   disabled?: boolean;
   children: ReactNode;
 }
