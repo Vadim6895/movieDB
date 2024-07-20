@@ -36,6 +36,9 @@ const todoApi = createApi({
       },
       keepUnusedDataFor: 0,
     }),
+    getPlayerFilm: builder.query({
+      queryFn: (id) => api.getPlayer(id),
+    }),
   }),
 });
 
@@ -45,5 +48,6 @@ export const {
   useGetPremiereFilmsQuery,
   useGetFilmQuery,
   useLazySearchFilmQuery,
+  useGetPlayerFilmQuery,
 } = todoApi;
 export default todoApi;

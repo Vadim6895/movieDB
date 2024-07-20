@@ -1,0 +1,46 @@
+.wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.frameWrapper {
+  width: 100%;
+  padding-top: 56.25%;
+  background-color: #000;
+}
+
+.playerTabs {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 80px;
+  right: 15px;
+}
+
+.playerTabBtn {
+  font-size: 16px;
+  line-height: 18px;
+  background-color: transparent;
+  color: #b1b1b1;
+  padding: 5px 10px;
+  border: 1px solid #b1b1b1;
+  border-radius: 4px;
+  margin-bottom: 10px;
+
+  &:hover {
+    color: var(--aqua);
+    border-color: var(--aqua);
+  }
+
+  &Active {
+    color: var(--aqua);
+    border-color: var(--aqua);
+  }
+}
+
+.spinnerWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}

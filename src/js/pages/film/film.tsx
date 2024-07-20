@@ -3,14 +3,15 @@ import { Link, useParams } from 'react-router-dom';
 import clsx from 'clsx';
 import { CSSTransition } from 'react-transition-group';
 
-import { useGetFilmQuery } from '../../reducer/filmsApi';
+import { useGetFilmQuery, useGetPlayerFilmQuery } from '../../reducer/filmsApi';
 
 import styles from './film.module.scss';
 import ratingPopupStyles from '../../components/ratingPopup/ratingPopup.module.scss';
-import ytPopupStyles from '../../components/YtPopup/ytpopup.module.scss';
+import basePopupStyles from '../../components/basePopup/basePopup.module.scss';
 import PersonSlider from '../../components/personSlider/personSlider';
 import RatingPopup from '../../components/ratingPopup/ratingPopup';
-import YtPopup from '../../components/YtPopup/ytpopup';
+import YtPopup from '../../components/YtPopup/YtPopup';
+import PlayerPopup from '../../components/playerPopup/playerPopup';
 import FilmTabs from '../../components/filmTabs/filmTabs';
 import Facts from '../../components/facts/facts';
 import FilmBtn from '../../components/filmBtn/filmBtn';
@@ -24,16 +25,23 @@ import {
 } from '../../utils';
 import FilmSlider from '../../components/filmSlider/filmSlider';
 
+import { playerObj } from '../../types';
+
 function Film() {
   const { id } = useParams();
   const [isRatingPopup, setRatingPopup] = React.useState(false);
   const [isYtPopup, setYtPopup] = React.useState(false);
+  const [isPlayerPopup, setPlayerPopup] = React.useState(false);
   const { data = {}, isFetching, isError, error } = useGetFilmQuery(id);
   const { actors, otherPersons } = transformPersons(data.persons);
-  const isDisabledBtn = data.videos ? !data.videos.trailers.length : true;
+  const isDisabledTrailerBtn = !data?.videos?.trailers.length;
   const filteredTrailers = getUniqueItemsByProperties(data?.videos?.trailers, [
     'url',
   ]);
+  const { data: playerData = [] } = useGetPlayerFilmQuery({ kinopoisk: id });
+  const filteredPlayerData = playerData?.filter(
+    (item: playerObj) => item.iframeUrl,
+  );
 
   if (isFetching || isError)
     return (
@@ -41,7 +49,7 @@ function Film() {
         <div className={styles.backgroundContainer} />
         <div className={clsx('container', styles.content)}>
           {isFetching && <Spinner width={75} height={75} />}
-          {isError && <span>{'message' in error ? error.message : ''}</span>}
+          {isError && <h2>Error: {'message' in error ? error.message : ''}</h2>}
         </div>
       </section>
     );
@@ -98,8 +106,15 @@ function Film() {
                 <div className={styles.btnsWrapper}>
                   <FilmBtn
                     trailer
+                    handler={setPlayerPopup}
+                    disabled={!filteredPlayerData.length}
+                  >
+                    Смотреть онлайн
+                  </FilmBtn>
+                  <FilmBtn
+                    trailer
                     handler={setYtPopup}
-                    disabled={isDisabledBtn}
+                    disabled={isDisabledTrailerBtn}
                   >
                     Трейлеры (
                     {data.videos?.trailers ? filteredTrailers.length : 0})
@@ -179,13 +194,26 @@ function Film() {
           timeout={300}
           unmountOnExit
           classNames={{
-            enter: ytPopupStyles.popupEnter,
-            enterActive: ytPopupStyles.popupEnterActive,
-            exit: ytPopupStyles.popupExit,
-            exitActive: ytPopupStyles.popupExitActive,
+            enter: basePopupStyles.popupEnter,
+            enterActive: basePopupStyles.popupEnterActive,
+            exit: basePopupStyles.popupExit,
+            exitActive: basePopupStyles.popupExitActive,
           }}
         >
           <YtPopup data={filteredTrailers} setVisible={setYtPopup} />
+        </CSSTransition>
+        <CSSTransition
+          in={isPlayerPopup}
+          timeout={300}
+          unmountOnExit
+          classNames={{
+            enter: basePopupStyles.popupEnter,
+            enterActive: basePopupStyles.popupEnterActive,
+            exit: basePopupStyles.popupExit,
+            exitActive: basePopupStyles.popupExitActive,
+          }}
+        >
+          <PlayerPopup data={filteredPlayerData} setVisible={setPlayerPopup} />
         </CSSTransition>
       </>
     );

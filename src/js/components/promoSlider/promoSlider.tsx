@@ -65,7 +65,9 @@ function PromoSlider() {
     <section className="page-block page-block--promo">
       {isLoading && <Spinner width={75} height={75} />}
       {isError && (
-        <span>Errror: {'message' in error ? error.message : ''}</span>
+        <div className="container">
+          <h2>Errror: {'message' in error ? error.message : ''}</h2>
+        </div>
       )}
       {data?.docs && (
         <Swiper

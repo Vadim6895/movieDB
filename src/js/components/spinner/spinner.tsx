@@ -20,7 +20,6 @@ function SmallSpinner({
 }: {
   width: number;
   height: number;
-  // eslint-disable-next-line react/require-default-props
   stroke?: number;
 }) {
   return (

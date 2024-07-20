@@ -42,6 +42,7 @@ const UNFL_KEY = process.env.UNFL_API;
 const UNFL_SEARCH = process.env.UNFL_API_SEARCH;
 const D_URL = process.env.D_API_URL;
 const D_PREMIERES = process.env.D_API_PREMIERES;
+const PLAYER_URL = process.env.API_PLAYER_URL;
 
 api.getFilms = function films(params = '', key = D_KEY) {
   const parsedParams = new URLSearchParams(params).toString();
@@ -70,6 +71,11 @@ api.searchFilm = function searchFilm(params = '') {
   return api(`${UNFL_SEARCH}&${parsedParams}`, {
     headers: { 'X-API-KEY': UNFL_KEY },
   });
+};
+
+api.getPlayer = function player(params = '') {
+  const parsedParams = new URLSearchParams(params).toString();
+  return api(`${PLAYER_URL}${parsedParams}`);
 };
 
 export default api;

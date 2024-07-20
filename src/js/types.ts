@@ -77,3 +77,8 @@ export interface Trailer {
 }
 
 export type Option = { title?: string; name: string; id: string };
+
+export interface playerObj {
+  iframeUrl: string;
+  source: string;
+}
