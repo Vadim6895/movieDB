@@ -10,7 +10,7 @@ import ratingPopupStyles from '../../components/ratingPopup/ratingPopup.module.s
 import basePopupStyles from '../../components/basePopup/basePopup.module.scss';
 import PersonSlider from '../../components/personSlider/personSlider';
 import RatingPopup from '../../components/ratingPopup/ratingPopup';
-import YtPopup from '../../components/YtPopup/YtPopup';
+import YtPopup from '../../components/ytPopup/ytPopup';
 import PlayerPopup from '../../components/playerPopup/playerPopup';
 import FilmTabs from '../../components/filmTabs/filmTabs';
 import Facts from '../../components/facts/facts';
@@ -77,11 +77,12 @@ function Film() {
                   <span className={styles.info}>
                     {data.ageRating && `${data.ageRating}+`}
                   </span>
-                  {data.countries.map((country: { name: string }) => (
-                    <span className={styles.info} key={country.name}>
-                      {country.name}
-                    </span>
-                  ))}
+                  {data.countries &&
+                    data.countries.map((country: { name: string }) => (
+                      <span className={styles.info} key={country.name}>
+                        {country.name}
+                      </span>
+                    ))}
                   {data.movieLength && (
                     <span className={styles.info}>
                       {data.movieLength} мин.{' '}
@@ -152,7 +153,7 @@ function Film() {
             data={data.sequelsAndPrequels}
           />
         )}
-        {Boolean(actors) && <PersonSlider persons={actors || []} />}
+        {Boolean(actors?.length) && <PersonSlider persons={actors || []} />}
         <section className={styles.authors}>
           <div className="container">
             <h2 className={styles.filmCrew}>Cъёмочная группа</h2>

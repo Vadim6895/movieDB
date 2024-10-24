@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import styles from './YtPopup.module.scss';
+import styles from './ytPopup.module.scss';
 import BasePopup from '../basePopup/basePopup';
 import { youtubeParser } from '../../utils';
 
