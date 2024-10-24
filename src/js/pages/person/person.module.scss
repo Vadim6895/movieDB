@@ -1,0 +1,411 @@
+@use "../../../scss/variables" as *;
+@use "../../../scss/common" as *;
+
+.person {
+  padding: calc(50px + var(--header-height)) 0 50px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: -175px;
+    top: -105px;
+    width: 600px;
+    height: 600px;
+    z-index: -1;
+    opacity: 0.1; // 0.1
+    background: radial-gradient(circle, rgb(0 255 255) 0%, rgb(21 22 26) 66%);
+  }
+
+  @media (min-width: $md) {
+    padding: calc(50px + var(--header-height)) 0 60px;
+  }
+
+  @media (min-width: $lg) {
+    padding: calc(50px + var(--header-height)) 0 70px;
+
+    &::after {
+      right: -175px;
+      top: -335px;
+      width: 1000px;
+      height: 1000px;
+    }
+  }
+
+  @media (min-width: $xl) {
+    padding: calc(50px + var(--header-height)) 0 100px;
+
+    &::after {
+      right: -175px;
+      top: -485px;
+      width: 1200px;
+      height: 1200px;
+    }
+  }
+}
+
+.personContainer {
+  max-width: 1200px;
+}
+
+.personWrapper {
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $md) {
+    flex-direction: row;
+  }
+}
+
+.personPoster {
+  border-radius: 15px;
+  object-fit: cover;
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  aspect-ratio: 3 / 4;
+
+  @media (min-width: $md) {
+    max-width: 320px;
+  }
+
+  @media (min-width: $lg) {
+    max-width: 380px;
+  }
+}
+
+.personInfo {
+  max-width: 800px;
+  margin-top: 20px;
+
+  @media (min-width: $md) {
+    margin-left: 30px;
+    margin-top: 0;
+  }
+
+  @media (min-width: $lg) {
+    margin-left: 50px;
+  }
+}
+
+.personName {
+  @include font(24px, 26px, 900);
+
+  margin: 10px 0 0;
+
+  @media (min-width: $md) {
+    font-size: 30px;
+    line-height: 32px;
+    margin-top: 0;
+  }
+
+  @media (min-width: $lg) {
+    font-size: 36px;
+    line-height: 38px;
+  }
+}
+
+.personNameEn {
+  @include font(16px, 18px, 500);
+
+  margin-top: 10px;
+
+  @media (min-width: $md) {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  @media (min-width: $lg) {
+    font-size: 20px;
+    line-height: 22px;
+  }
+}
+
+.personInfoWrapper {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+
+  @media (min-width: $md) {
+    margin-top: 50px;
+    grid-gap: 30px;
+  }
+
+  @media (min-width: $lg) {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 35px;
+  }
+}
+
+.personInfoItem {
+  margin-right: 20px;
+}
+
+.personInfoTitle {
+  @include font(18px, 22px, 500);
+
+  color: var(--grey-text);
+  margin: 0 0 5px;
+
+  @media (min-width: $md) {
+    margin-bottom: 10px;
+  }
+}
+
+.personInfoDesc {
+  @include font(14px, 18px, 500);
+
+  color: #fff;
+  margin: 0;
+
+  @media (min-width: $md) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  @media (min-width: $lg) {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
+.films {
+  padding-bottom: 40px;
+
+  @media (min-width: $md) {
+    padding-bottom: 60px;
+  }
+
+  @media (min-width: $lg) {
+    padding-bottom: 100px;
+  }
+}
+
+.filmsTitle {
+  @include font(24px, 26px, 900);
+
+  margin-top: 0;
+
+  @media (min-width: $md) {
+    font-size: 30px;
+    line-height: 32px;
+  }
+}
+
+.filmRole {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 900;
+  cursor: pointer;
+  color: #fff;
+  padding: 0;
+  padding-bottom: 20px;
+  border-bottom: 2px solid transparent;
+
+  &:hover {
+    color: var(--aqua);
+  }
+
+  &Active {
+    color: var(--aqua);
+    border-bottom: 2px solid var(--aqua);
+  }
+
+  @media (min-width: $md) {
+    font-size: 24px;
+    line-height: 28px;
+  }
+}
+
+.filmsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.filmWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 0;
+  border-bottom: 1px solid #00ffff30;
+
+  @media (min-width: $md) {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.film {
+  border-radius: 8px;
+  padding: 0 10px;
+  margin-left: -10px;
+  margin-right: -10px;
+
+  &:hover {
+    background-color: #00ffff30;
+  }
+}
+
+.filmMainInfo {
+  margin-bottom: 15px;
+
+  @media (min-width: $md) {
+    width: 40%;
+    margin-bottom: 0;
+  }
+}
+
+.filmName {
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.filmEnName {
+  color: #bdbdbd;
+  margin-bottom: 5px;
+}
+
+.filmActorRole {
+  color: #bdbdbd;
+}
+
+.filmRating {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 500;
+  margin-bottom: 10px;
+
+  @media (min-width: $md) {
+    margin-bottom: 0;
+  }
+}
+
+.filmLink {
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 500;
+  padding: 0;
+  color: #fff;
+  text-decoration: underline;
+
+  @media (min-width: $md) {
+    padding: 5px;
+  }
+}
+
+// facts
+
+.facts {
+  padding-bottom: 40px;
+
+  @media (min-width: $md) {
+    padding-bottom: 60px;
+  }
+
+  @media (min-width: $lg) {
+    padding-bottom: 100px;
+  }
+}
+
+.factsList {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+}
+
+.fact {
+  padding: 15px 0 15px 15px;
+  border-bottom: 1px solid var(--grey-text);
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background-color: var(--grey-text);
+    border-radius: 50%;
+  }
+}
+
+.showMoreBtn {
+  margin-top: 30px;
+  border-radius: 5px;
+  background-color: #1ca7a7;
+  transition: background-color 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  width: 132px;
+  height: 36px;
+  padding: 0;
+  color: #fff;
+
+  &:hover {
+    background-color: #23cdcd;
+  }
+}
+
+.slider {
+  padding-top: 5px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #808080;
+}
+
+.slide {
+  width: auto;
+}
+
+.btnNext,
+.btnPrev {
+  display: block;
+  position: absolute;
+  top: 30%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  right: 0;
+  z-index: 2;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      #fff0,
+      #141519 65%,
+      var(--body-bg-color)
+    );
+  }
+
+  &[disabled] {
+    display: none;
+  }
+
+  svg {
+    vertical-align: middle;
+    position: relative;
+  }
+}
+
+.btnPrev {
+  left: 0;
+  right: auto;
+  transform: translateY(-50%) rotate(180deg);
+}

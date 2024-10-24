@@ -39,9 +39,10 @@ const D_KEY = process.env.D_API;
 const D_KEY_2 = process.env.D_API_2;
 const UNFL_KEY = process.env.UNFL_API;
 
-const UNFL_SEARCH = process.env.UNFL_API_SEARCH;
 const D_URL = process.env.D_API_URL;
-const D_PREMIERES = process.env.D_API_PREMIERES;
+const D_PREMIERES = process.env.D_API_PREMIERES_URL;
+const UNFL_STAFF = process.env.UNFL_API_STAFF_URL;
+const UNFL_SEARCH = process.env.UNFL_API_SEARCH_URL;
 const PLAYER_URL = process.env.API_PLAYER_URL;
 
 api.getFilms = function films(params = '', key = D_KEY) {
@@ -76,6 +77,12 @@ api.searchFilm = function searchFilm(params = '') {
 api.getPlayer = function player(params = '') {
   const parsedParams = new URLSearchParams(params).toString();
   return api(`${PLAYER_URL}${parsedParams}`);
+};
+
+api.getPerson = function person(id: number) {
+  return api(`${UNFL_STAFF}/${id}`, {
+    headers: { 'X-API-KEY': UNFL_KEY },
+  });
 };
 
 export default api;

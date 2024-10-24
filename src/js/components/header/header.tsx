@@ -110,6 +110,7 @@ function Header() {
     function onEscKeyDown(evt: KeyboardEvent) {
       if (evt.key === 'Escape') {
         setOpenSearch(false);
+        clearSearch();
         document.body.setAttribute('style', '');
         document.removeEventListener('keydown', onEscKeyDown);
       }

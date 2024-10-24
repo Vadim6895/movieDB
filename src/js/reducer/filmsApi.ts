@@ -39,6 +39,9 @@ const todoApi = createApi({
     getPlayerFilm: builder.query({
       queryFn: (id) => api.getPlayer(id),
     }),
+    getPerson: builder.query({
+      queryFn: (id) => api.getPerson(id),
+    }),
   }),
 });
 
@@ -49,5 +52,6 @@ export const {
   useGetFilmQuery,
   useLazySearchFilmQuery,
   useGetPlayerFilmQuery,
+  useGetPersonQuery,
 } = todoApi;
 export default todoApi;

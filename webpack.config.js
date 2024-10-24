@@ -167,7 +167,7 @@ module.exports = {
       //   },
       // },
       {
-        test: /\.(ts|tsx|js)/,
+        test: /\.(ts|tsx|js|jsx)/,
         exclude: /node_modules/,
         resolve: {
           extensions: ['.tsx', '.ts', '.js', '.jsx'],

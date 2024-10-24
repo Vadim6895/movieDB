@@ -5,6 +5,7 @@ import Main from './pages/main/main';
 import Films from './pages/films/films';
 import Film from './pages/film/film';
 import NotFound from './pages/notfound/notfound';
+import Person from './pages/person/person';
 import Layout from './components/layout/layout';
 import { appRoute } from './const';
 import ScrollToTop from './components/scrollToTop/scrollToTop';
@@ -24,6 +25,7 @@ function App() {
             element={<Films type="animated-series" />}
           />
           <Route path={appRoute.FILM} element={<Film />} />
+          <Route path={appRoute.PERSON} element={<Person />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

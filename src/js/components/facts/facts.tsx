@@ -51,7 +51,7 @@ const Facts = memo(({ facts }: { facts: Fact[] }) => {
         <h2 className={styles.factsTitle}>Интересные факты о фильме</h2>
         <ul className={styles.factsList}>
           {facts.slice(0, showedFactsCount).map((fact, i) => (
-            <Fact key={i} fact={fact} index={i} />
+            <Fact key={fact.value.slice(0, 20)} fact={fact} index={i} />
           ))}
         </ul>
         {showBtn && (

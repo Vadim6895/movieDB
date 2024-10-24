@@ -82,3 +82,19 @@ export interface playerObj {
   iframeUrl: string;
   source: string;
 }
+
+export interface PersonFilm {
+  description: string;
+  filmId: number;
+  general: boolean;
+  nameEn: string;
+  nameRu: string;
+  professionKey: string;
+  rating: string;
+}
+
+export type filmsByProffesion = {
+  role: string;
+  roleRu: string;
+  films: PersonFilm[];
+};

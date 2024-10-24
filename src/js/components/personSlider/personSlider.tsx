@@ -8,6 +8,7 @@ import 'swiper/css';
 
 import styles from './personSlider.module.scss';
 import SliderBtns, { sliderBtnsNavigation } from '../sliderBtns/sliderBtns';
+import { linkRoute } from '../../const';
 
 import { Person } from '../../types';
 
@@ -52,7 +53,7 @@ function PersonSlider({ persons }: { persons: Person[] }) {
         >
           {persons.map((item) => (
             <SwiperSlide className={styles.slide} key={item.id}>
-              <Link to="#">
+              <Link to={`${linkRoute.PERSON}${item.id}`}>
                 <div className={styles.personWrapper}>
                   <span className={styles.shortName}>НА</span>
                   <img

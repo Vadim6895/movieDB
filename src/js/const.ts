@@ -277,3 +277,13 @@ export const yearsPublication = [
     id: '2015',
   },
 ];
+
+export const roleTypes: { [char: string]: string } = {
+  ACTOR: 'Актер',
+  HRONO_TITR_MALE: 'Присутствует в титрах',
+  HRONO_TITR_FEMALE: 'Присутствует в титрах',
+  DIRECTOR: 'Директор',
+  WRITER: 'Писатель',
+  HIMSELF: 'Играет самого себя',
+  PRODUCER: 'Продюсер',
+};

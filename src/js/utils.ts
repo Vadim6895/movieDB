@@ -1,10 +1,12 @@
-import { ratingName, pageTypes } from './const';
+import { ratingName, pageTypes, roleTypes } from './const';
 import {
   Person,
   dynamicPersonObject,
   dynamicKeysObject,
   Trailer,
   Option,
+  PersonFilm,
+  filmsByProffesion,
 } from './types';
 
 export const getRatingColor = (rating: string | number | undefined) => {
@@ -179,4 +181,29 @@ export function updateScrollPos(
     const difference = elPosBottom - listPosBottom;
     scrollRef.current.scrollBy(0, difference + 10);
   }
+}
+
+export function getFilmsByProfession(films: PersonFilm[]) {
+  if (!films?.length) return [];
+  const result: filmsByProffesion[] = [];
+  const filmsIdMap: { [key: string]: number } = {};
+
+  const uniqueFilms = films.filter(({ filmId }) => {
+    if (!filmsIdMap[filmId]) {
+      filmsIdMap[filmId] = 1;
+      return true;
+    }
+    return false;
+  });
+  uniqueFilms.forEach((item) => {
+    const role = item.professionKey;
+    const findItemRole = result.find((resultitem) => resultitem.role === role);
+    if (!findItemRole) {
+      result.push({ role, roleRu: roleTypes[role], films: [item] });
+    } else {
+      findItemRole.films.push(item);
+    }
+  });
+
+  return result;
 }
