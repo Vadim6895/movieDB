@@ -95,6 +95,7 @@
 .filmBLocksWrapper {
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   @media (min-width: $lg) {
     margin-left: 50px;
