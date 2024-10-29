@@ -8,6 +8,7 @@ import Select from '../../components/select/select';
 import Pagination from '../../components/pagination/pagination';
 import FilmsContainer from '../../components/filmsContainer/filmsContainer';
 import Spinner from '../../components/spinner/spinner';
+import Icon from '../../components/icon/icon';
 import {
   allGenresNames,
   moviesRating,
@@ -17,7 +18,6 @@ import {
   spriteNames,
 } from '../../const';
 import { paramsToObject, getPageTitle } from '../../utils';
-import sprite from '../../../img/sprite.svg';
 
 function Films(params: { type: string }) {
   const { type } = params;
@@ -90,9 +90,10 @@ function Films(params: { type: string }) {
               classModif="Sort"
               extraOption={{ type: selectTypes.sortType, id: '-1' }}
             >
-              <svg className={styles.sortIcon}>
-                <use xlinkHref={`${sprite}#${spriteNames.common.sort}`} />
-              </svg>
+              <Icon
+                iconName={spriteNames.common.sort}
+                className={styles.sortIcon}
+              />
               <span className={styles.sortTextMob}>По: </span>
               <span className={styles.sortText}>Сортировать по: </span>
             </Select>

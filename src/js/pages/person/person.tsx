@@ -9,7 +9,7 @@ import { useGetPersonQuery } from '../../reducer/filmsApi';
 import 'swiper/css';
 
 import styles from './person.module.scss';
-import sprite from '../../../img/sprite.svg';
+import Icon from '../../components/icon/icon';
 import { spriteNames, roleTypes, FACTS_COUNT, linkRoute } from '../../const';
 import { filmsByProffesion } from '../../types';
 import Spinner from '../../components/spinner/spinner';
@@ -145,18 +145,18 @@ function Person() {
               </SwiperSlide>
             ))}
             <button className={styles.btnPrev} type="button" aria-label="prev">
-              <svg width={30} height={30}>
-                <use
-                  xlinkHref={`${sprite}#${spriteNames.common.sliderArrow}`}
-                />
-              </svg>
+              <Icon
+                width={30}
+                height={30}
+                iconName={spriteNames.common.sliderArrow}
+              />
             </button>
             <button className={styles.btnNext} type="button" aria-label="next">
-              <svg width={30} height={30}>
-                <use
-                  xlinkHref={`${sprite}#${spriteNames.common.sliderArrow}`}
-                />
-              </svg>
+              <Icon
+                width={30}
+                height={30}
+                iconName={spriteNames.common.sliderArrow}
+              />
             </button>
           </Swiper>
           <div className={styles.filmsContainer}>

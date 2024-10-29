@@ -1,15 +1,24 @@
 import React from 'react';
 
-import sprite from '../../../img/sprite.svg';
+import commonSprite from '../../../img/sprite.svg';
+import genreSprite from '../../../img/genre-sprite.svg';
 
 interface IconProps {
-  className: string;
+  width?: number;
+  height?: number;
+  defaultSprite?: boolean;
   iconName: string;
-  width: string;
-  height: string;
+  className?: string;
 }
 
-function Icon({ width, height, className, iconName }: IconProps) {
+function Icon({
+  width = 50,
+  height = 50,
+  defaultSprite = true,
+  iconName,
+  className,
+}: IconProps) {
+  const sprite = defaultSprite ? commonSprite : genreSprite;
   return (
     <svg
       aria-hidden

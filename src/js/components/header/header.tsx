@@ -9,7 +9,7 @@ import { useLazySearchFilmQuery } from '../../reducer/filmsApi';
 import styles from './header.module.scss';
 import logoDesktop from '../../../img/logo-desktop.svg';
 import logoMobile from '../../../img/logo-mobile.svg';
-import sprite from '../../../img/sprite.svg';
+import Icon from '../icon/icon';
 import { spriteNames, appRoute, linkRoute } from '../../const';
 import Spinner, { SmallSpinner } from '../spinner/spinner';
 
@@ -149,9 +149,12 @@ function Header() {
           {search ? (
             <div className={styles.search}>
               <div className={styles.searchInputWrapper}>
-                <svg className={styles.headerIcon} width="24px" height="24px">
-                  <use xlinkHref={`${sprite}#${spriteNames.common.search}`} />
-                </svg>
+                <Icon
+                  width={24}
+                  height={24}
+                  iconName={spriteNames.common.search}
+                  className={styles.headerIcon}
+                />
                 <input
                   className={styles.searchInput}
                   // eslint-disable-next-line
@@ -221,14 +224,20 @@ function Header() {
             onClick={() => toggleSearch(!search)}
           >
             {search ? (
-              <svg className={styles.headerIcon} width="24px" height="24px">
-                <use xlinkHref={`${sprite}#${spriteNames.common.close}`} />
-              </svg>
+              <Icon
+                width={24}
+                height={24}
+                iconName={spriteNames.common.close}
+                className={styles.headerIcon}
+              />
             ) : (
               <>
-                <svg className={styles.headerIcon} width="24px" height="24px">
-                  <use xlinkHref={`${sprite}#${spriteNames.common.search}`} />
-                </svg>
+                <Icon
+                  width={24}
+                  height={24}
+                  iconName={spriteNames.common.search}
+                  className={styles.headerIcon}
+                />
                 <span className={styles.headerBtnText}>Поиск</span>
               </>
             )}
@@ -237,15 +246,21 @@ function Header() {
             className={clsx(styles.linkFavorite, styles.linkDisabled)}
             to={appRoute.MAIN}
           >
-            <svg className={styles.headerIcon} width="24px" height="24px">
-              <use xlinkHref={`${sprite}#${spriteNames.common.favorite}`} />
-            </svg>
+            <Icon
+              width={24}
+              height={24}
+              iconName={spriteNames.common.favorite}
+              className={styles.headerIcon}
+            />
             <span className={styles.headerBtnText}>Избранное</span>
           </Link>
           <button className={styles.headerBtn} type="button" disabled>
-            <svg className={styles.headerIcon} width="24px" height="24px">
-              <use xlinkHref={`${sprite}#${spriteNames.common.login}`} />
-            </svg>
+            <Icon
+              width={24}
+              height={24}
+              iconName={spriteNames.common.login}
+              className={styles.headerIcon}
+            />
             <span className={styles.headerBtnText}>Войти</span>
           </button>
           <button
@@ -254,21 +269,25 @@ function Header() {
             aria-label="burger"
             onClick={() => toggleMenu(isOpen)}
           >
-            <svg className={styles.headerIcon} width="30px" height="30px">
-              {isOpen ? (
-                <use xlinkHref={`${sprite}#${spriteNames.common.close}`} />
-              ) : (
-                <use xlinkHref={`${sprite}#${spriteNames.common.burger}`} />
-              )}
-            </svg>
+            <Icon
+              width={30}
+              height={30}
+              iconName={
+                isOpen ? spriteNames.common.close : spriteNames.common.burger
+              }
+              className={styles.headerIcon}
+            />
           </button>
         </div>
       </div>
       {search && (
         <div className={clsx('container', styles.searchMob)}>
-          <svg className={styles.searchIconMob} width="24px" height="24px">
-            <use xlinkHref={`${sprite}#${spriteNames.common.search}`} />
-          </svg>
+          <Icon
+            width={24}
+            height={24}
+            iconName={spriteNames.common.search}
+            className={styles.searchIconMob}
+          />
           <input
             className={styles.searchInputMob}
             // eslint-disable-next-line
@@ -283,9 +302,7 @@ function Header() {
             type="button"
             onClick={clearSearch}
           >
-            <svg width="14px" height="14px">
-              <use xlinkHref={`${sprite}#${spriteNames.common.close}`} />
-            </svg>
+            <Icon width={14} height={14} iconName={spriteNames.common.close} />
             <span className="visually-hidden">Очистить поле ввода</span>
           </button>
         </div>

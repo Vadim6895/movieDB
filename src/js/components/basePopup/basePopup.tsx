@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './basePopup.module.scss';
-import sprite from '../../../img/sprite.svg';
+import Icon from '../icon/icon';
 import { spriteNames } from '../../const';
 import useModalEffect from '../../hooks/useModalEffect';
 
@@ -23,9 +23,7 @@ function BasePopup({ children, setVisible }: Props) {
           aria-label="close"
           onClick={() => setVisible(false)}
         >
-          <svg width={30} height={30}>
-            <use xlinkHref={`${sprite}#${spriteNames.common.close}`} />
-          </svg>
+          <Icon width={30} height={30} iconName={spriteNames.common.close} />
         </button>
         <div className={styles.content}>{children}</div>
       </div>

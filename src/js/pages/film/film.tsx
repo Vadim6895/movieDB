@@ -15,7 +15,7 @@ import PlayerPopup from '../../components/playerPopup/playerPopup';
 import FilmTabs from '../../components/filmTabs/filmTabs';
 import Facts from '../../components/facts/facts';
 import FilmBtn from '../../components/filmBtn/filmBtn';
-import sprite from '../../../img/sprite.svg';
+import Icon from '../../components/icon/icon';
 import { spriteNames, appRoute } from '../../const';
 import Spinner from '../../components/spinner/spinner';
 import {
@@ -121,17 +121,19 @@ function Film() {
                     {data.videos?.trailers ? filteredTrailers.length : 0})
                   </FilmBtn>
                   <FilmBtn handler={setRatingPopup}>
-                    <svg width={20} height={20}>
-                      <use xlinkHref={`${sprite}#${spriteNames.common.star}`} />
-                    </svg>
+                    <Icon
+                      width={20}
+                      height={20}
+                      iconName={spriteNames.common.star}
+                    />
                     <span>Оценить</span>
                   </FilmBtn>
                   <FilmBtn disabled>
-                    <svg width={20} height={20} fill="#fff">
-                      <use
-                        xlinkHref={`${sprite}#${spriteNames.common.favorite}`}
-                      />
-                    </svg>
+                    <Icon
+                      width={20}
+                      height={20}
+                      iconName={spriteNames.common.favorite}
+                    />
                     <span>Запомнить</span>
                   </FilmBtn>
                 </div>

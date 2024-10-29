@@ -2,7 +2,7 @@ import React, { RefObject } from 'react';
 import clsx from 'clsx';
 
 import styles from './pagination.module.scss';
-import sprite from '../../../img/sprite.svg';
+import Icon from '../icon/icon';
 import { spriteNames } from '../../const';
 import { calcPaginationArr } from '../../utils';
 import useOnClickOutSide from '../../hooks/useOnClickOutside';
@@ -61,9 +61,12 @@ function Pagination({ pages, paramsPage, handler, filmsref }: Props) {
             aria-label="Первая страница"
             onClick={(evt) => onClickLink(evt, 1)}
           >
-            <svg className={styles.paginationIconFirst} width={15} height={15}>
-              <use xlinkHref={`${sprite}#${spriteNames.common.arrowRight}`} />
-            </svg>
+            <Icon
+              width={15}
+              height={15}
+              iconName={spriteNames.common.arrowRight}
+              className={styles.paginationIconFirst}
+            />
           </a>
         </li>
         <li className={styles.paginationItem}>
@@ -73,11 +76,12 @@ function Pagination({ pages, paramsPage, handler, filmsref }: Props) {
             aria-label="Назад"
             onClick={(evt) => onClickLink(evt, activePage - 1)}
           >
-            <svg className={styles.paginationIconFirst} width={15} height={15}>
-              <use
-                xlinkHref={`${sprite}#${spriteNames.common.arrowRightSingle}`}
-              />
-            </svg>
+            <Icon
+              width={15}
+              height={15}
+              iconName={spriteNames.common.arrowRightSingle}
+              className={styles.paginationIconFirst}
+            />
           </a>
         </li>
         {calcPaginationArr(activePage, pages).map((item) =>
@@ -107,11 +111,12 @@ function Pagination({ pages, paramsPage, handler, filmsref }: Props) {
             aria-label="Вперед"
             onClick={(evt) => onClickLink(evt, activePage + 1)}
           >
-            <svg className={styles.paginationIconLast} width={15} height={15}>
-              <use
-                xlinkHref={`${sprite}#${spriteNames.common.arrowRightSingle}`}
-              />
-            </svg>
+            <Icon
+              width={15}
+              height={15}
+              iconName={spriteNames.common.arrowRightSingle}
+              className={styles.paginationIconLast}
+            />
           </a>
         </li>
         <li className={clsx(styles.paginationItem, styles.paginationItemEnd)}>
@@ -121,9 +126,12 @@ function Pagination({ pages, paramsPage, handler, filmsref }: Props) {
             aria-label="Последняя страница"
             onClick={(evt) => onClickLink(evt, pages)}
           >
-            <svg className={styles.paginationIconLast} width={15} height={15}>
-              <use xlinkHref={`${sprite}#${spriteNames.common.arrowRight}`} />
-            </svg>
+            <Icon
+              width={15}
+              height={15}
+              iconName={spriteNames.common.arrowRight}
+              className={styles.paginationIconLast}
+            />
           </a>
         </li>
       </ul>
@@ -135,9 +143,10 @@ function Pagination({ pages, paramsPage, handler, filmsref }: Props) {
           onClick={() => setIsComponentVisible(!isComponentVisible)}
         >
           Страница {activePage} из {pages}
-          <svg className={styles.paginationJumpIcon}>
-            <use xlinkHref={`${sprite}#${spriteNames.common.caretBottom}`} />
-          </svg>
+          <Icon
+            iconName={spriteNames.common.caretBottom}
+            className={styles.paginationJumpIcon}
+          />
         </button>
         {isComponentVisible && (
           <div className={styles.paginationJumpMenu}>

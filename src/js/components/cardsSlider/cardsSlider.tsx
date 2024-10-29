@@ -11,8 +11,8 @@ import { useGetSliderFilmsQuery } from '../../reducer/filmsApi';
 
 import styles from './cardsSlider.module.scss';
 import SliderBtns, { sliderBtnsNavigation } from '../sliderBtns/sliderBtns';
+import Icon from '../icon/icon';
 import Spinner from '../spinner/spinner';
-import sprite from '../../../img/sprite.svg';
 import { spriteNames, linkRoute, appRoute, selectTypes } from '../../const';
 import { getRatingColor } from '../../utils';
 
@@ -66,9 +66,11 @@ function CardsSlider({ genre }: { genre: { id: string; name: string } }) {
         >
           <h2 className={styles.title}>{genre.name}</h2>
           <span className={styles.icon}>
-            <svg>
-              <use xlinkHref={`${sprite}#${spriteNames.common.sliderArrow}`} />
-            </svg>
+            <Icon
+              width={30}
+              height={30}
+              iconName={spriteNames.common.sliderArrow}
+            />
           </span>
         </Link>
 
@@ -121,11 +123,11 @@ function CardsSlider({ genre }: { genre: { id: string; name: string } }) {
               <Link to={`${appRoute.FILMS}?genres=${genre.id}`}>
                 <div className={styles.wrapper}>
                   <div className={styles.showAllWrapper}>
-                    <svg className={styles.showAllIcon}>
-                      <use
-                        xlinkHref={`${sprite}#${spriteNames.common.sliderArrow}`}
-                      />
-                    </svg>
+                    <Icon
+                      width={30}
+                      height={30}
+                      iconName={spriteNames.common.sliderArrow}
+                    />
                     <p className={styles.showAllText}>Показать все</p>
                   </div>
                 </div>

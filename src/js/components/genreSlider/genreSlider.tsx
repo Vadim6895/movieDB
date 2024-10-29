@@ -8,9 +8,9 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 
 import styles from './genreSlider.module.scss';
+import Icon from '../icon/icon';
 import SliderBtns, { sliderBtnsNavigation } from '../sliderBtns/sliderBtns';
 import { allGenresNames, appRoute } from '../../const';
-import genreSprite from '../../../img/genre-sprite.svg';
 
 interface IsliderPos {
   isBeginning: boolean;
@@ -74,9 +74,11 @@ function GenreSlider() {
                 className={styles.link}
                 to={`${appRoute.FILMS}?genres.name=${item.id}`}
               >
-                <svg className={styles.icon}>
-                  <use xlinkHref={`${genreSprite}#${item.id}`} />
-                </svg>
+                <Icon
+                  defaultSprite={false}
+                  iconName={item.id}
+                  className={styles.icon}
+                />
                 <span>{item.name}</span>
               </Link>
             </SwiperSlide>

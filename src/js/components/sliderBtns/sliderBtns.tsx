@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import styles from './sliderBtns.module.scss';
-import sprite from '../../../img/sprite.svg';
+import Icon from '../icon/icon';
 import { spriteNames } from '../../const';
 
 const sliderBtnsNavigation = {
@@ -18,18 +18,22 @@ function SliderBtns({ style = '' }: { style: string }) {
         type="button"
         aria-label="prev"
       >
-        <svg>
-          <use xlinkHref={`${sprite}#${spriteNames.common.sliderArrow}`} />
-        </svg>
+        <Icon
+          width={30}
+          height={30}
+          iconName={spriteNames.common.sliderArrow}
+        />
       </button>
       <button
         className={clsx(styles.btnNext, style)}
         type="button"
         aria-label="next"
       >
-        <svg>
-          <use xlinkHref={`${sprite}#${spriteNames.common.sliderArrow}`} />
-        </svg>
+        <Icon
+          width={30}
+          height={30}
+          iconName={spriteNames.common.sliderArrow}
+        />
       </button>
     </>
   );

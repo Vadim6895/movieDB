@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 
 import styles from './select.module.scss';
-import sprite from '../../../img/sprite.svg';
+import Icon from '../icon/icon';
 import { spriteNames } from '../../const';
 import { updateScrollPos } from '../../utils';
 
@@ -157,9 +157,10 @@ function Select({
         <span className={styles.text}>
           {activeItem.title || activeItem.name}
         </span>
-        <svg className={clsx(styles.icon, openSelect && styles.iconOpen)}>
-          <use xlinkHref={`${sprite}#${spriteNames.common.sliderArrow}`} />
-        </svg>
+        <Icon
+          iconName={spriteNames.common.sliderArrow}
+          className={clsx(styles.icon, openSelect && styles.iconOpen)}
+        />
       </div>
       {openSelect && (
         <ul className={styles.list} ref={scrollRef} onMouseMove={onMoveOption}>

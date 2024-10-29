@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import styles from './ratingPopup.module.scss';
-import sprite from '../../../img/sprite.svg';
+import Icon from '../icon/icon';
 import { spriteNames } from '../../const';
 import useModalEffect from '../../hooks/useModalEffect';
 
@@ -36,9 +36,7 @@ function RatingPopup({ setVisible }: { setVisible: (v: boolean) => void }) {
           aria-label="close"
           onClick={() => setVisible(false)}
         >
-          <svg width={30} height={30}>
-            <use xlinkHref={`${sprite}#${spriteNames.common.close}`} />
-          </svg>
+          <Icon width={30} height={30} iconName={spriteNames.common.close} />
         </button>
 
         <h3 className={styles.title}>Поставьте оценку</h3>
