@@ -32,6 +32,22 @@ function PlayerPopup({ setVisible, data }: Props) {
 
   return (
     <BasePopup setVisible={setVisible}>
+      <div className={styles.playerTabs}>
+        {data.map((item, i) => (
+          <button
+            className={clsx(
+              styles.playerTabBtn,
+              item.iframeUrl === activePlayer.iframeUrl &&
+                styles.playerTabBtnActive,
+            )}
+            type="button"
+            key={item.iframeUrl}
+            onClick={() => changePlayer(item)}
+          >
+            Плеер №{i + 1} [{item.source}]
+          </button>
+        ))}
+      </div>
       <div className={styles.wrapper}>
         <div className={styles.frameWrapper}>
           {loading && (
@@ -49,22 +65,6 @@ function PlayerPopup({ setVisible, data }: Props) {
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
           />
-          <div className={styles.playerTabs}>
-            {data.map((item, i) => (
-              <button
-                className={clsx(
-                  styles.playerTabBtn,
-                  item.iframeUrl === activePlayer.iframeUrl &&
-                    styles.playerTabBtnActive,
-                )}
-                type="button"
-                key={item.iframeUrl}
-                onClick={() => changePlayer(item)}
-              >
-                Плеер №{i + 1} [{item.source}]
-              </button>
-            ))}
-          </div>
         </div>
       </div>
     </BasePopup>
