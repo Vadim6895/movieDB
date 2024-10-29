@@ -23,6 +23,9 @@ function Person() {
     () => getFilmsByProfession(data.films),
     [data.films],
   );
+
+  console.log(sortedFilms);
+
   const [activeRole, setRole] = React.useState(sortedFilms[0]);
   const [factsShowed, setFactsShowed] = React.useState(FACTS_COUNT);
   const [filmsShowed, setFilmsShowed] = React.useState(FACTS_COUNT);

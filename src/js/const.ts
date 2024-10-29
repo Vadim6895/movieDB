@@ -285,5 +285,6 @@ export const roleTypes: { [char: string]: string } = {
   DIRECTOR: 'Директор',
   WRITER: 'Писатель',
   HIMSELF: 'Играет самого себя',
+  HERSELF: 'Играет саму себя',
   PRODUCER: 'Продюсер',
 };
