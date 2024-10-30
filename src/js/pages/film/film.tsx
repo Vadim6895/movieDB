@@ -133,6 +133,7 @@ function Film() {
                       width={20}
                       height={20}
                       iconName={spriteNames.common.favorite}
+                      fill="#fff"
                     />
                     <span>Запомнить</span>
                   </FilmBtn>

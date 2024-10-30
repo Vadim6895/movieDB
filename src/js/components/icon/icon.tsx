@@ -9,6 +9,7 @@ interface IconProps {
   defaultSprite?: boolean;
   iconName: string;
   className?: string;
+  fill?: string;
 }
 
 function Icon({
@@ -17,6 +18,7 @@ function Icon({
   defaultSprite = true,
   iconName,
   className,
+  fill = '',
 }: IconProps) {
   const sprite = defaultSprite ? commonSprite : genreSprite;
   return (
@@ -26,6 +28,7 @@ function Icon({
       focusable="false"
       width={width}
       height={height}
+      fill={fill}
     >
       <use xlinkHref={`${sprite}#${iconName}`} />
     </svg>
